@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Maquiagens | Dellas Make-up</title>
+<title>Produto | Dellas Make-up</title>
 <meta name="description" content="Batons, bases, corretivos, paletas e mais. Compre na Dellas Make-up e pague em dinheiro ou Pix.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,48 +43,51 @@
  </ul></div></nav>
 </header>
 
-<main>
- <div class="wrap loja">
-  <aside class="filtros" aria-label="Filtros">
-   <h2>Maquiagens</h2>
-   <ul id="cats"></ul>
-   <h2>Preço máximo</h2>
-   <input type="range" id="preco" min="30" max="80" step="5" value="80" aria-label="Preço máximo">
-   <div class="faixa"><span>R$ 30</span><span id="precoVal">R$ 80</span></div>
-  </aside>
-  <div>
-   <div class="destaque">
-    <div><h1>Maquiagens para todos os momentos</h1><p>Do dia a dia às grandes ocasiões. Encontre o produto ideal para você.</p></div>
-    <svg viewBox="0 0 48 70" aria-hidden="true"><use href="#batom"/></svg>
+<main class="wrap" id="conteudo">
+ <p class="migalha"><a href="index.html">Início</a><span>›</span><a href="produtos.html">Maquiagens</a><span>›</span><b id="crumb"></b></p>
+ <div class="produto">
+  <div class="principal"><svg id="pImg" aria-hidden="true"></svg></div>
+  <div class="info">
+   <h1 id="pNome"></h1>
+   <span class="preco" id="pPreco"></span>
+   <span class="pix">à vista, em dinheiro ou Pix</span>
+   <p class="resumo" id="pDesc"></p>
+   <p class="rotulo">Tom: <b id="tomNome"></b></p>
+   <div class="tons" id="tons"></div>
+   <div class="compra">
+    <div class="qtd"><button type="button" id="menos" aria-label="Diminuir quantidade">−</button><span id="qtd" aria-live="polite">1</span><button type="button" id="mais" aria-label="Aumentar quantidade">+</button></div>
+    <button type="button" class="btn" id="add">Adicionar ao carrinho</button>
    </div>
-   <div class="barra">
-    <label>Ordenar por <select id="ordem"><option value="pop">Mais populares</option><option value="menor">Menor preço</option><option value="maior">Maior preço</option></select></label>
-    <span id="contagem" aria-live="polite"></span>
-   </div>
-   <!-- Exemplos: troque nomes, preços e categorias pelos seus produtos -->
-   <div class="grade" id="grade"></div>
+   <!-- Textos de exemplo: troque pelas informações reais de cada produto -->
+   <details open><summary>Descrição</summary><p id="pDesc2"></p></details>
+   <details><summary>Modo de uso</summary><p>Aplique seguindo a orientação do fabricante, que está na embalagem.</p></details>
+   <details><summary>Ingredientes</summary><p>Veja a lista completa de ingredientes na embalagem do produto.</p></details>
   </div>
  </div>
+ <div style="padding-top:44px"><h2>Você também pode gostar</h2><div class="grade" id="similares"></div></div>
 </main>
 <script src="produtos.js"></script>
 <script>
-const CATS=[["todos","Todos"],["batom","Batom"],["base","Base"],["corretivo","Corretivo"],["po","Pó"],["blush","Blush"],["iluminador","Iluminador"],["sombra","Sombra"],["rimel","Máscara de cílios"],["delineador","Delineador"]];
-let cat="todos";
 const $=id=>document.getElementById(id), brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
-function lista(){
- $("cats").innerHTML=CATS.map(([k,n])=>`<li><button type="button" data-k="${k}" aria-pressed="${k===cat}">${n}</button></li>`).join("");
+const id=+new URLSearchParams(location.search).get("id"), p=P[id];
+if(!p){
+ $("conteudo").innerHTML='<p class="vazio" style="padding:60px 0">Produto não encontrado. <a href="produtos.html"><u>Ver todos os produtos</u></a></p>';
+}else{
+ document.title=p[0]+" | Dellas Make-up";
+ $("crumb").textContent=p[0]; $("pNome").textContent=p[0]; $("pPreco").textContent=brl(p[2]);
+ $("pDesc").textContent=p[5]; $("pDesc2").textContent=p[5];
+ $("pImg").setAttribute("viewBox",p[4]); $("pImg").innerHTML=`<use href="#${p[3]}"/>`;
+ $("tomNome").textContent=p[6][0][0];
+ $("tons").innerHTML=p[6].map((t,i)=>`<button type="button" class="tom" style="background:${t[1]}" data-n="${t[0]}" aria-label="Tom ${t[0]}" aria-pressed="${i===0}"></button>`).join("");
+ $("tons").addEventListener("click",e=>{const b=e.target.closest(".tom");if(!b)return;
+  document.querySelectorAll(".tom").forEach(x=>x.setAttribute("aria-pressed",x===b));$("tomNome").textContent=b.dataset.n;});
+ let q=1;const mostra=()=>$("qtd").textContent=q;
+ $("menos").onclick=()=>{q=Math.max(1,q-1);mostra();};
+ $("mais").onclick=()=>{q=Math.min(20,q+1);mostra();};
+ $("add").onclick=()=>{$("add").textContent="Adicionado";setTimeout(()=>$("add").textContent="Adicionar ao carrinho",1800);};
+ $("similares").innerHTML=[1,2,3,4].map(k=>{const j=(id+k)%P.length,o=P[j];
+  return `<article class="card"><a class="img" href="produto.html?id=${j}"><svg viewBox="${o[4]}"><use href="#${o[3]}"/></svg></a><h3><a href="produto.html?id=${j}">${o[0]}</a></h3><span class="preco">${brl(o[2])}</span><span class="pix">à vista</span></article>`;}).join("");
 }
-function mostrar(){
- const max=+$("preco").value, o=$("ordem").value;
- $("precoVal").textContent=brl(max).replace(",00","");
- let r=P.filter(p=>(cat==="todos"||p[1]===cat)&&p[2]<=max);
- if(o==="menor")r.sort((a,b)=>a[2]-b[2]); if(o==="maior")r.sort((a,b)=>b[2]-a[2]);
- $("contagem").textContent=`Exibindo ${r.length} de ${P.length} produtos`;
- $("grade").innerHTML=r.length?r.map(p=>`<article class="card"><a class="img" href="produto.html?id=${P.indexOf(p)}"><svg viewBox="${p[4]}"><use href="#${p[3]}"/></svg></a><h3><a href="produto.html?id=${P.indexOf(p)}">${p[0]}</a></h3><span class="preco">${brl(p[2])}</span><span class="pix">à vista</span><button type="button">Adicionar</button></article>`).join(""):`<p class="vazio">Nenhum produto nessa faixa. Aumente o preço máximo ou escolha outra categoria.</p>`;
-}
-$("cats").addEventListener("click",e=>{const b=e.target.closest("button");if(b){cat=b.dataset.k;lista();mostrar();}});
-$("preco").addEventListener("input",mostrar);$("ordem").addEventListener("change",mostrar);
-lista();mostrar();
 </script>
 
 <footer>
