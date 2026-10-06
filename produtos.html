@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maquiagens | Dellas Make-up</title>
+<meta name="description" content="Batons, bases, corretivos, paletas e mais. Compre na Dellas Make-up e pague em dinheiro ou Pix.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Ícones reutilizáveis -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <symbol id="cereja" viewBox="0 0 40 40"><path d="M20 4c-3 8-6 14-8 20M20 4c1 6 4 12 8 18" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="29" r="7.5" fill="#fff"/><circle cx="28" cy="27" r="7.5" fill="#fff"/></symbol>
+ <symbol id="batom" viewBox="0 0 48 70"><path d="M17 38V20q0-9 7-14q7 5 7 14v18z" fill="#880E1A"/><rect x="14" y="38" width="20" height="26" rx="2" fill="#3b0a10"/><rect x="14" y="38" width="20" height="4" fill="#c9a24a"/></symbol>
+ <symbol id="base" viewBox="0 0 48 70"><rect x="18" y="4" width="12" height="14" rx="2" fill="#3b0a10"/><rect x="12" y="18" width="24" height="46" rx="6" fill="#e3b08e"/><rect x="16" y="30" width="16" height="14" rx="2" fill="#fff" opacity=".55"/></symbol>
+ <symbol id="rimel" viewBox="0 0 48 70"><rect x="21" y="2" width="6" height="22" rx="2" fill="#3b0a10"/><rect x="15" y="24" width="18" height="40" rx="4" fill="#880E1A"/><rect x="15" y="40" width="18" height="6" fill="#3b0a10"/></symbol>
+ <symbol id="paleta" viewBox="0 0 64 64"><rect x="3" y="10" width="58" height="44" rx="6" fill="#5b1620"/><g><rect x="9" y="16" width="14" height="14" rx="3" fill="#c0505a"/><rect x="25" y="16" width="14" height="14" rx="3" fill="#e2929a"/><rect x="41" y="16" width="14" height="14" rx="3" fill="#8f2a35"/><rect x="9" y="34" width="14" height="14" rx="3" fill="#d9a07a"/><rect x="25" y="34" width="14" height="14" rx="3" fill="#a3434d"/><rect x="41" y="34" width="14" height="14" rx="3" fill="#f0c3b5"/></g></symbol>
+ <symbol id="creme" viewBox="0 0 64 64"><rect x="10" y="26" width="44" height="28" rx="6" fill="#f3d3d6"/><rect x="8" y="14" width="48" height="14" rx="5" fill="#880E1A"/></symbol>
+<symbol id="po" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27" fill="#3b0a10"/><circle cx="32" cy="32" r="20" fill="#e9a3a6"/><circle cx="26" cy="26" r="6" fill="#fff" opacity=".35"/></symbol><symbol id="caneta" viewBox="0 0 48 70"><rect x="21" y="4" width="6" height="48" rx="3" fill="#3b0a10"/><path d="M21 52h6l-3 13z" fill="#880E1A"/></symbol></svg>
+
+<header>
+ <div class="wrap topo">
+  <a class="logo" href="index.html" aria-label="Dellas Make-up, página inicial">
+   <svg width="38" height="38"><use href="#cereja"/></svg>
+   <span><b>dellas</b><small>MAKE-UP</small></span>
+  </a>
+  <form class="busca" role="search" onsubmit="return false">
+   <input type="search" placeholder="O que você procura?" aria-label="Buscar produtos">
+   <button type="submit" aria-label="Buscar"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
+  </form>
+  <div class="acoes">
+   <a href="#" aria-label="Minha conta"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></a>
+   <a href="#" aria-label="Favoritos"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg></a>
+   <a href="#" aria-label="Carrinho"><svg class="i" viewBox="0 0 24 24"><path d="M6 7h12l1 13H5zM9 7a3 3 0 0 1 6 0"/></svg></a>
+  </div>
+ </div>
+ <nav aria-label="Categorias"><div class="wrap"><ul>
+  <li><a href="index.html">Início</a></li><li><a href="produtos.html" aria-current="page">Maquiagens</a></li><li><a href="#">Skincare</a></li><li><a href="#">Kits</a></li><li><a href="#lancamentos">Lançamentos</a></li><li><a href="#">Ofertas</a></li>
+ </ul></div></nav>
+</header>
+
+<main>
+ <div class="wrap loja">
+  <aside class="filtros" aria-label="Filtros">
+   <h2>Maquiagens</h2>
+   <ul id="cats"></ul>
+   <h2>Preço máximo</h2>
+   <input type="range" id="preco" min="30" max="80" step="5" value="80" aria-label="Preço máximo">
+   <div class="faixa"><span>R$ 30</span><span id="precoVal">R$ 80</span></div>
+  </aside>
+  <div>
+   <div class="destaque">
+    <div><h1>Maquiagens para todos os momentos</h1><p>Do dia a dia às grandes ocasiões. Encontre o produto ideal para você.</p></div>
+    <svg viewBox="0 0 48 70" aria-hidden="true"><use href="#batom"/></svg>
+   </div>
+   <div class="barra">
+    <label>Ordenar por <select id="ordem"><option value="pop">Mais populares</option><option value="menor">Menor preço</option><option value="maior">Maior preço</option></select></label>
+    <span id="contagem" aria-live="polite"></span>
+   </div>
+   <!-- Exemplos: troque nomes, preços e categorias pelos seus produtos -->
+   <div class="grade" id="grade"></div>
+  </div>
+ </div>
+</main>
+<script src="produtos.js"></script>
+<script>
+const CATS=[["todos","Todos"],["batom","Batom"],["base","Base"],["corretivo","Corretivo"],["po","Pó"],["blush","Blush"],["iluminador","Iluminador"],["sombra","Sombra"],["rimel","Máscara de cílios"],["delineador","Delineador"]];
+let cat="todos";
+const $=id=>document.getElementById(id), brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+function lista(){
+ $("cats").innerHTML=CATS.map(([k,n])=>`<li><button type="button" data-k="${k}" aria-pressed="${k===cat}">${n}</button></li>`).join("");
+}
+function mostrar(){
+ const max=+$("preco").value, o=$("ordem").value;
+ $("precoVal").textContent=brl(max).replace(",00","");
+ let r=P.filter(p=>(cat==="todos"||p[1]===cat)&&p[2]<=max);
+ if(o==="menor")r.sort((a,b)=>a[2]-b[2]); if(o==="maior")r.sort((a,b)=>b[2]-a[2]);
+ $("contagem").textContent=`Exibindo ${r.length} de ${P.length} produtos`;
+ $("grade").innerHTML=r.length?r.map(p=>`<article class="card"><a class="img" href="produto.html?id=${P.indexOf(p)}"><svg viewBox="${p[4]}"><use href="#${p[3]}"/></svg></a><h3><a href="produto.html?id=${P.indexOf(p)}">${p[0]}</a></h3><span class="preco">${brl(p[2])}</span><span class="pix">à vista</span><button type="button">Adicionar</button></article>`).join(""):`<p class="vazio">Nenhum produto nessa faixa. Aumente o preço máximo ou escolha outra categoria.</p>`;
+}
+$("cats").addEventListener("click",e=>{const b=e.target.closest("button");if(b){cat=b.dataset.k;lista();mostrar();}});
+$("preco").addEventListener("input",mostrar);$("ordem").addEventListener("change",mostrar);
+lista();mostrar();
+</script>
+
+<footer>
+ <div class="wrap">
+  <div class="rod">
+   <div>
+    <a class="logo" href="index.html"><svg width="38" height="38"><use href="#cereja"/></svg><span><b>dellas</b><small>MAKE-UP</small></span></a>
+    <p>Beleza em cada detalhe. Pagamento em dinheiro ou Pix. Entrega no Piauí.</p>
+   </div>
+   <div><h4>Institucional</h4><ul><li><a href="#">Sobre nós</a></li><li><a href="#">Política de privacidade</a></li><li><a href="#">Termos de uso</a></li></ul></div>
+   <div><h4>Ajuda</h4><ul><li><a href="#">Dúvidas frequentes</a></li><li><a href="#">Trocas e devoluções</a></li><li><a href="#">Fale conosco</a></li></ul></div>
+   <div><h4>Redes sociais</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">TikTok</a></li><li><a href="#">WhatsApp</a></li></ul></div>
+  </div>
+  <p class="copy">© 2026 Dellas Make-up. Todos os direitos reservados.</p>
+ </div>
+</footer>
+
+</body>
+</html>
