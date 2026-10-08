@@ -1,3 +1,7 @@
+// ===== Dados da loja =====
+const WHATSAPP="5511978373595";  // WhatsApp da loja com código do país e DDD, só números. Ex.: "5586999999999"
+const CIDADES=["São João do Piauí","Capitão Gervásio Oliveira","Santa Rita","Canto do Buriti"];
+
 // Lista de produtos da loja. Para trocar nome, preço, descrição ou fotos, edite aqui.
 // preco: número (ex.: 29.9) ou null para mostrar "Consulte o preço". Hoje todos custam 10.
 // imgs: nomes dos arquivos de foto (na mesma pasta do site).
@@ -19,5 +23,5 @@ const P=[
 ];
 const $=id=>document.getElementById(id);
 const brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
-function cartao(i){const p=P[i],l="produto.html?id="+i;
- return `<article class="card"><a class="img" href="${l}"><img src="${p.imgs[0]}" alt="${p.nome}" loading="lazy"${p.pos?` style="object-position:${p.pos}"`:""}></a><h3><a href="${l}">${p.nome}</a></h3>${p.preco!=null?`<span class="preco">${brl(p.preco)}</span><span class="pix">à vista</span>`:`<span class="pix">Consulte o preço</span>`}</article>`;}
+function cartao(i){const p=P[i],l="produto.html?id="+i,f=typeof isFav==="function"&&isFav(i);
+ return `<article class="card"><a class="img" href="${l}"><img src="${p.imgs[0]}" alt="${p.nome}" loading="lazy"${p.pos?` style="object-position:${p.pos}"`:""}></a><button type="button" class="fav" data-fav="${i}" aria-pressed="${f}" aria-label="Favoritar ${p.nome}">♥</button><h3><a href="${l}">${p.nome}</a></h3>${p.preco!=null?`<span class="preco">${brl(p.preco)}</span><span class="pix">à vista</span>`:`<span class="pix">Consulte o preço</span>`}</article>`;}

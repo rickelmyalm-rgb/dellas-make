@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Maquiagens | Dellas Make-up</title>
+<title>Carrinho | Dellas Make-up</title>
 <meta name="description" content="Batons, bases, corretivos, paletas e mais. Compre na Dellas Make-up e pague em dinheiro ou Pix.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,40 +39,63 @@
   </div>
  </div>
  <nav aria-label="Categorias"><div class="wrap"><ul>
-  <li><a href="index.html">Início</a></li><li><a href="produtos.html" aria-current="page">Maquiagens</a></li><li><a href="#">Skincare</a></li><li><a href="#">Kits</a></li><li><a href="#lancamentos">Lançamentos</a></li><li><a href="#">Ofertas</a></li>
+  <li><a href="index.html">Início</a></li><li><a href="produtos.html">Maquiagens</a></li><li><a href="#">Skincare</a></li><li><a href="#">Kits</a></li><li><a href="#lancamentos">Lançamentos</a></li><li><a href="#">Ofertas</a></li>
  </ul></div></nav>
 </header>
 
-<main>
- <div class="wrap loja">
-  <aside class="filtros" aria-label="Filtros">
-   <h2>Maquiagens</h2>
-   <ul id="cats"></ul>
+<main class="wrap pagina">
+ <h1 class="titulo">Carrinho</h1>
+ <p class="vazio" id="vazio" hidden>Seu carrinho está vazio. <a href="produtos.html"><u>Ver produtos</u></a></p>
+ <div class="carrinho" id="cheio">
+  <div id="itens"></div>
+  <aside class="caixa">
+   <h2>Resumo do pedido</h2>
+   <div class="linha"><span>Subtotal</span><span id="sub"></span></div>
+   <div class="linha"><span>Entrega</span><span>a combinar</span></div>
+   <div class="linha total"><span>Total</span><span id="total"></span></div>
+   <form id="pedido" class="form">
+    <label>Nome<input name="nome" required maxlength="60" autocomplete="name"></label>
+    <label>WhatsApp (com DDD)<input name="whats" required inputmode="tel" autocomplete="tel" placeholder="86 99999-9999"></label>
+    <label>Cidade<select name="cidade" required><option value="">Escolha sua cidade</option></select></label>
+    <div class="radios" role="radiogroup" aria-label="Forma de pagamento"><b>Pagamento</b>
+     <label><input type="radio" name="pag" value="Dinheiro" checked> Dinheiro</label>
+     <label><input type="radio" name="pag" value="Pix"> Pix</label></div>
+    <label>Observações (opcional)<textarea name="obs" rows="2" maxlength="300"></textarea></label>
+    <p class="erro" id="erro" role="alert"></p>
+    <button class="btn" type="submit">Enviar pedido pelo WhatsApp</button>
+    <p class="nota-texto">O pedido abre no seu WhatsApp e o pagamento e a entrega são combinados por lá.</p>
+   </form>
+   <button type="button" class="rem" id="limpar">Esvaziar carrinho</button>
   </aside>
-  <div>
-   <div class="destaque">
-    <div><h1>Maquiagens para todos os momentos</h1><p>Do dia a dia às grandes ocasiões. Encontre o produto ideal para você.</p></div>
-    <img src="p-gloss-vitrine.webp" alt="">
-   </div>
-   <div class="barra"><span id="contagem" aria-live="polite"></span></div>
-   <div class="grade" id="grade"></div>
-  </div>
  </div>
 </main>
 <script src="produtos.js"></script>
 <script src="loja.js"></script>
 <script>
-const CATS=[["todos","Todos"],["base","Base"],["corretivo","Corretivo"],["po","Pó"],["blush","Blush"],["iluminador","Iluminador"],["gloss","Gloss"],["cilios","Cílios"],["sobrancelha","Sobrancelha"],["esponjas","Esponjas e kits"],["skincare","Skincare"],["blindagem","Blindagem"]];
-const q=new URLSearchParams(location.search).get("cat");
-let cat=CATS.some(c=>c[0]===q)?q:"todos";
-function lista(){$("cats").innerHTML=CATS.map(([k,n])=>`<li><button type="button" data-k="${k}" aria-pressed="${k===cat}">${n}</button></li>`).join("");}
-function mostrar(){
- const r=P.filter(p=>cat==="todos"||p.cat===cat);
- $("contagem").textContent=`Exibindo ${r.length} de ${P.length} produtos`;
- $("grade").innerHTML=r.length?r.map(p=>cartao(P.indexOf(p))).join(""):`<p class="vazio">Nenhum produto nessa categoria.</p>`;
+const lista=()=>carrinho.itens().filter(i=>P[i.id]);
+const somar=l=>l.reduce((s,i)=>s+(P[i.id].preco??0)*i.qtd,0);
+const f=$("pedido");
+f.cidade.insertAdjacentHTML("beforeend",CIDADES.map(x=>`<option>${esc(x)}</option>`).join(""));
+const c=conta.ler();if(c){f.nome.value=c.nome;f.whats.value=c.whats;f.cidade.value=c.cidade;}
+else $("limpar").insertAdjacentHTML("beforebegin",'<p class="nota-texto"><a href="conta.html?voltar=carrinho.html"><u>Entre na sua conta</u> para preencher seus dados automaticamente.</a></p>');
+function desenhar(){
+ const l=lista();$("vazio").hidden=l.length>0;$("cheio").hidden=!l.length;if(!l.length)return;
+ $("itens").innerHTML=l.map((it,k)=>{const p=P[it.id];
+  return `<div class="item"><a href="produto.html?id=${it.id}"><img src="${p.imgs[0]}" alt="${esc(p.nome)}"></a><div><h3><a href="produto.html?id=${it.id}">${esc(p.nome)}</a></h3>${it.tom?`<small>Tom: ${esc(it.tom)}</small>`:""}<div class="qtd"><button type="button" data-k="${k}" data-d="-1" aria-label="Diminuir quantidade">−</button><span>${it.qtd}</span><button type="button" data-k="${k}" data-d="1" aria-label="Aumentar quantidade">+</button></div></div><div class="dir"><b>${brl((p.preco??0)*it.qtd)}</b><br><button type="button" class="rem" data-k="${k}" data-rem>Remover</button></div></div>`;}).join("");
+ $("sub").textContent=$("total").textContent=brl(somar(l));
 }
-$("cats").addEventListener("click",e=>{const b=e.target.closest("button");if(b){cat=b.dataset.k;lista();mostrar();}});
-lista();mostrar();
+$("itens").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+ const l=lista(),k=+b.dataset.k;
+ if(b.hasAttribute("data-rem"))l.splice(k,1);else l[k].qtd=Math.min(20,Math.max(1,l[k].qtd+ +b.dataset.d));
+ carrinho.salvar(l);desenhar();});
+$("limpar").onclick=()=>{carrinho.salvar([]);desenhar();};
+f.addEventListener("submit",e=>{e.preventDefault();const l=lista();if(!l.length)return;
+ if(!WHATSAPP){$("erro").textContent="O número de WhatsApp da loja ainda não foi configurado (arquivo produtos.js).";return;}
+ $("erro").textContent="";
+ const linhas=l.map(i=>{const p=P[i.id];return `• ${i.qtd}x ${p.nome}${i.tom?` (tom ${i.tom})`:""} - ${brl((p.preco??0)*i.qtd)}`;}).join("\n");
+ const msg=`Olá! Quero fazer um pedido na Dellas Make-up:\n\n${linhas}\n\n*Total:* ${brl(somar(l))} (entrega a combinar)\n*Nome:* ${f.nome.value.trim()}\n*WhatsApp:* ${f.whats.value.trim()}\n*Cidade:* ${f.cidade.value}\n*Pagamento:* ${f.pag.value}${f.obs.value.trim()?`\n*Obs.:* ${f.obs.value.trim()}`:""}`;
+ window.open("https://wa.me/"+WHATSAPP.replace(/\D/g,"")+"?text="+encodeURIComponent(msg),"_blank","noopener");});
+desenhar();
 </script>
 
 <footer>

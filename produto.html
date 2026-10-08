@@ -33,9 +33,9 @@
    <button type="submit" aria-label="Buscar"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
   </form>
   <div class="acoes">
-   <a href="#" aria-label="Minha conta"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></a>
-   <a href="#" aria-label="Favoritos"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg></a>
-   <a href="#" aria-label="Carrinho"><svg class="i" viewBox="0 0 24 24"><path d="M6 7h12l1 13H5zM9 7a3 3 0 0 1 6 0"/></svg></a>
+   <a href="conta.html" aria-label="Minha conta"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></a>
+   <a href="favoritos.html" aria-label="Favoritos"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg><span class="badge" id="nFav" hidden>0</span></a>
+   <a href="carrinho.html" aria-label="Carrinho"><svg class="i" viewBox="0 0 24 24"><path d="M6 7h12l1 13H5zM9 7a3 3 0 0 1 6 0"/></svg><span class="badge" id="nCarrinho" hidden>0</span></a>
   </div>
  </div>
  <nav aria-label="Categorias"><div class="wrap"><ul>
@@ -59,6 +59,7 @@
    <span class="preco" id="pPreco"></span>
    <span class="pix" id="pPix">à vista, em dinheiro ou Pix</span>
    <p class="resumo" id="pDesc"></p>
+   <button type="button" class="fav fav-texto" id="favBtn" aria-pressed="false"><b aria-hidden="true">♥</b><span>Favoritar</span></button>
    <p class="rotulo" id="rotulo">Tom: <b id="tomNome"></b></p>
    <div class="tons" id="tons"></div>
    <div class="compra">
@@ -71,9 +72,16 @@
    <details><summary>Ingredientes</summary><p>Veja a lista completa de ingredientes na embalagem do produto.</p></details>
   </div>
  </div>
+ <section id="avaliacoes">
+  <h2>Avaliações</h2>
+  <p class="media" id="media"></p>
+  <div id="areaForm"></div>
+  <div id="listaAval"></div>
+ </section>
  <div style="padding-top:44px"><h2>Você também pode gostar</h2><div class="grade" id="similares"></div></div>
 </main>
 <script src="produtos.js"></script>
+<script src="loja.js"></script>
 <script>
 const id=+new URLSearchParams(location.search).get("id"),p=P[id];
 if(!p){
@@ -83,7 +91,9 @@ if(!p){
  $("crumb").textContent=p.nome;$("pNome").textContent=p.nome;
  $("pPreco").textContent=p.preco!=null?brl(p.preco):"Consulte o preço";$("pPix").hidden=p.preco==null;
  $("pDesc").textContent=p.desc;$("pDesc2").textContent=p.desc;
+ $("favBtn").dataset.fav=id;$("favBtn").setAttribute("aria-label","Favoritar "+p.nome);
  const n=p.imgs.length;let cur=0;
+ const tomSel=()=>{const b=document.querySelector(".tom[aria-pressed=true]");return b?b.dataset.n:null;};
  function marcaTom(t){document.querySelectorAll(".tom").forEach((b,k)=>b.setAttribute("aria-pressed",k===t));$("tomNome").textContent=p.tons[t][0];}
  function ir(i){cur=(i+n)%n;$("foto").src=p.imgs[cur];$("foto").alt=p.nome+", foto "+(cur+1);
   document.querySelectorAll(".mini button").forEach((b,k)=>b.setAttribute("aria-current",k===cur));
@@ -94,15 +104,33 @@ if(!p){
   let x0=null;$("palco").addEventListener("touchstart",e=>x0=e.touches[0].clientX,{passive:true});
   $("palco").addEventListener("touchend",e=>{if(x0===null)return;const d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>40)ir(cur+(d<0?1:-1));});
  }else{$("ant").hidden=true;$("prox").hidden=true;$("mini").hidden=true;}
- if(p.tons){$("tons").innerHTML=p.tons.map(t=>`<button type="button" class="tom" style="background:${t[1]}" aria-label="Tom ${t[0]}" aria-pressed="false"></button>`).join("");
+ if(p.tons){$("tons").innerHTML=p.tons.map(t=>`<button type="button" class="tom" data-n="${esc(t[0])}" style="background:${t[1]}" aria-label="Tom ${esc(t[0])}" aria-pressed="false"></button>`).join("");
   marcaTom(0);
   $("tons").addEventListener("click",e=>{const b=e.target.closest(".tom");if(!b)return;const t=[...$("tons").children].indexOf(b);marcaTom(t);if(typeof p.tons[t][2]==="number")ir(p.tons[t][2]);});
  }else{$("rotulo").hidden=true;$("tons").hidden=true;}
  ir(0);
  let q=1;const mostra=()=>$("qtd").textContent=q;
  $("menos").onclick=()=>{q=Math.max(1,q-1);mostra();};$("mais").onclick=()=>{q=Math.min(20,q+1);mostra();};
- $("add").onclick=()=>{$("add").textContent="Adicionado";setTimeout(()=>$("add").textContent="Adicionar ao carrinho",1800);};
+ $("add").onclick=()=>{carrinho.add(id,tomSel(),q);aviso('Adicionado ao carrinho <a href="carrinho.html">Ver carrinho</a>');
+  $("add").textContent="Adicionado";setTimeout(()=>$("add").textContent="Adicionar ao carrinho",1800);};
  $("similares").innerHTML=[1,2,3,4].map(k=>cartao((id+k)%P.length)).join("");
+
+ /* ---- avaliações e comentários ---- */
+ const c=conta.ler();
+ function mostrarAval(){
+  const l=avaliacoes.listar(id),k=l.length,m=k?l.reduce((s,a)=>s+a.nota,0)/k:0;
+  $("media").innerHTML=k?`<span class="estrelas" aria-hidden="true">${estrelas(Math.round(m))}</span> <b>${m.toFixed(1).replace(".",",")}</b> · ${k} avaliaç${k>1?"ões":"ão"}`:"Ainda não há avaliações. Seja a primeira pessoa a avaliar!";
+  $("listaAval").innerHTML=l.map(a=>`<article class="aval"><div><b>${esc(a.nome)}</b> <span class="estrelas" role="img" aria-label="${a.nota} de 5 estrelas">${estrelas(a.nota)}</span><small>${esc(a.data)}</small></div>${a.texto?`<p>${esc(a.texto)}</p>`:""}${c&&a.autor===c.uid?'<button type="button" class="rem" data-del>Excluir minha avaliação</button>':""}</article>`).join("");
+ }
+ if(!c){$("areaForm").innerHTML=`<p>Para avaliar ou comentar, <a href="conta.html?voltar=${encodeURIComponent("produto.html?id="+id)}"><u>entre na sua conta</u></a>.</p>`;}
+ else{
+  $("areaForm").innerHTML=`<form id="fa" class="form"><div class="nota" role="radiogroup" aria-label="Sua nota">${[5,4,3,2,1].map(x=>`<input type="radio" name="nota" id="n${x}" value="${x}" required><label for="n${x}" title="${x} estrela${x>1?"s":""}">★<span class="so-leitor"> ${x} estrela${x>1?"s":""}</span></label>`).join("")}</div><label>Comentário (opcional)<textarea name="texto" rows="3" maxlength="500"></textarea></label><button class="btn" type="submit">Enviar avaliação</button><p class="nota-texto">Sua avaliação fica salva neste aparelho.</p></form>`;
+  $("fa").addEventListener("submit",e=>{e.preventDefault();const f=e.target;
+   avaliacoes.salvar(id,{autor:c.uid,nome:c.nome.split(" ")[0],nota:+f.nota.value,texto:f.texto.value.trim(),data:new Date().toLocaleDateString("pt-BR")});
+   f.reset();mostrarAval();aviso("Avaliação enviada");});
+ }
+ $("listaAval").addEventListener("click",e=>{if(e.target.closest("[data-del]")&&c){avaliacoes.remover(id,c.uid);mostrarAval();}});
+ mostrarAval();
 }
 </script>
 
@@ -115,7 +143,7 @@ if(!p){
    </div>
    <div><h4>Institucional</h4><ul><li><a href="#">Sobre nós</a></li><li><a href="#">Política de privacidade</a></li><li><a href="#">Termos de uso</a></li></ul></div>
    <div><h4>Ajuda</h4><ul><li><a href="#">Dúvidas frequentes</a></li><li><a href="#">Trocas e devoluções</a></li><li><a href="#">Fale conosco</a></li></ul></div>
-   <div><h4>Redes sociais</h4><ul><li><a href="https://www.instagram.com/dellasmakeup10_" target="_blank" rel="noopener">Instagram @dellasmakeup10_</a></li><li><a href="#">TikTok</a></li><li><a href="#">WhatsApp</a></li></ul></div>
+   <div><h4>Redes sociais</h4><ul><li><a href="https://www.instagram.com/dellasmakeup10_" target="_blank" rel="noopener">Instagram @dellasmakeup10_</a></li><li><a href="#">TikTok</a></li><li><a href="https://wa.me/5511978373595" target="_blank" rel="noopener">WhatsApp</a></li></ul></div>
   </div>
   <p class="copy">© 2026 Dellas Make-up. Todos os direitos reservados.</p>
  </div>
