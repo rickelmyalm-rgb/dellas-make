@@ -48,42 +48,29 @@
   <aside class="filtros" aria-label="Filtros">
    <h2>Maquiagens</h2>
    <ul id="cats"></ul>
-   <h2>Preço máximo</h2>
-   <input type="range" id="preco" min="30" max="80" step="5" value="80" aria-label="Preço máximo">
-   <div class="faixa"><span>R$ 30</span><span id="precoVal">R$ 80</span></div>
   </aside>
   <div>
    <div class="destaque">
     <div><h1>Maquiagens para todos os momentos</h1><p>Do dia a dia às grandes ocasiões. Encontre o produto ideal para você.</p></div>
-    <svg viewBox="0 0 48 70" aria-hidden="true"><use href="#batom"/></svg>
+    <img src="p-gloss-vitrine.webp" alt="">
    </div>
-   <div class="barra">
-    <label>Ordenar por <select id="ordem"><option value="pop">Mais populares</option><option value="menor">Menor preço</option><option value="maior">Maior preço</option></select></label>
-    <span id="contagem" aria-live="polite"></span>
-   </div>
-   <!-- Exemplos: troque nomes, preços e categorias pelos seus produtos -->
+   <div class="barra"><span id="contagem" aria-live="polite"></span></div>
    <div class="grade" id="grade"></div>
   </div>
  </div>
 </main>
 <script src="produtos.js"></script>
 <script>
-const CATS=[["todos","Todos"],["batom","Batom"],["base","Base"],["corretivo","Corretivo"],["po","Pó"],["blush","Blush"],["iluminador","Iluminador"],["sombra","Sombra"],["rimel","Máscara de cílios"],["delineador","Delineador"]];
-let cat="todos";
-const $=id=>document.getElementById(id), brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
-function lista(){
- $("cats").innerHTML=CATS.map(([k,n])=>`<li><button type="button" data-k="${k}" aria-pressed="${k===cat}">${n}</button></li>`).join("");
-}
+const CATS=[["todos","Todos"],["base","Base"],["corretivo","Corretivo"],["po","Pó"],["blush","Blush"],["iluminador","Iluminador"],["gloss","Gloss"],["cilios","Cílios"],["sobrancelha","Sobrancelha"],["esponjas","Esponjas e kits"],["skincare","Skincare"],["blindagem","Blindagem"]];
+const q=new URLSearchParams(location.search).get("cat");
+let cat=CATS.some(c=>c[0]===q)?q:"todos";
+function lista(){$("cats").innerHTML=CATS.map(([k,n])=>`<li><button type="button" data-k="${k}" aria-pressed="${k===cat}">${n}</button></li>`).join("");}
 function mostrar(){
- const max=+$("preco").value, o=$("ordem").value;
- $("precoVal").textContent=brl(max).replace(",00","");
- let r=P.filter(p=>(cat==="todos"||p[1]===cat)&&p[2]<=max);
- if(o==="menor")r.sort((a,b)=>a[2]-b[2]); if(o==="maior")r.sort((a,b)=>b[2]-a[2]);
+ const r=P.filter(p=>cat==="todos"||p.cat===cat);
  $("contagem").textContent=`Exibindo ${r.length} de ${P.length} produtos`;
- $("grade").innerHTML=r.length?r.map(p=>`<article class="card"><a class="img" href="produto.html?id=${P.indexOf(p)}"><svg viewBox="${p[4]}"><use href="#${p[3]}"/></svg></a><h3><a href="produto.html?id=${P.indexOf(p)}">${p[0]}</a></h3><span class="preco">${brl(p[2])}</span><span class="pix">à vista</span><button type="button">Adicionar</button></article>`).join(""):`<p class="vazio">Nenhum produto nessa faixa. Aumente o preço máximo ou escolha outra categoria.</p>`;
+ $("grade").innerHTML=r.length?r.map(p=>cartao(P.indexOf(p))).join(""):`<p class="vazio">Nenhum produto nessa categoria.</p>`;
 }
 $("cats").addEventListener("click",e=>{const b=e.target.closest("button");if(b){cat=b.dataset.k;lista();mostrar();}});
-$("preco").addEventListener("input",mostrar);$("ordem").addEventListener("change",mostrar);
 lista();mostrar();
 </script>
 
@@ -96,7 +83,7 @@ lista();mostrar();
    </div>
    <div><h4>Institucional</h4><ul><li><a href="#">Sobre nós</a></li><li><a href="#">Política de privacidade</a></li><li><a href="#">Termos de uso</a></li></ul></div>
    <div><h4>Ajuda</h4><ul><li><a href="#">Dúvidas frequentes</a></li><li><a href="#">Trocas e devoluções</a></li><li><a href="#">Fale conosco</a></li></ul></div>
-   <div><h4>Redes sociais</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">TikTok</a></li><li><a href="#">WhatsApp</a></li></ul></div>
+   <div><h4>Redes sociais</h4><ul><li><a href="https://www.instagram.com/dellasmakeup10_" target="_blank" rel="noopener">Instagram @dellasmakeup10_</a></li><li><a href="#">TikTok</a></li><li><a href="#">WhatsApp</a></li></ul></div>
   </div>
   <p class="copy">© 2026 Dellas Make-up. Todos os direitos reservados.</p>
  </div>

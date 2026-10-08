@@ -46,13 +46,20 @@
 <main class="wrap" id="conteudo">
  <p class="migalha"><a href="index.html">Início</a><span>›</span><a href="produtos.html">Maquiagens</a><span>›</span><b id="crumb"></b></p>
  <div class="produto">
-  <div class="principal"><svg id="pImg" aria-hidden="true"></svg></div>
+  <div class="galeria">
+   <div class="principal" id="palco">
+    <img id="foto" alt="">
+    <button type="button" class="seta ant" id="ant" aria-label="Foto anterior">‹</button>
+    <button type="button" class="seta prox" id="prox" aria-label="Próxima foto">›</button>
+   </div>
+   <div class="mini" id="mini"></div>
+  </div>
   <div class="info">
    <h1 id="pNome"></h1>
    <span class="preco" id="pPreco"></span>
-   <span class="pix">à vista, em dinheiro ou Pix</span>
+   <span class="pix" id="pPix">à vista, em dinheiro ou Pix</span>
    <p class="resumo" id="pDesc"></p>
-   <p class="rotulo">Tom: <b id="tomNome"></b></p>
+   <p class="rotulo" id="rotulo">Tom: <b id="tomNome"></b></p>
    <div class="tons" id="tons"></div>
    <div class="compra">
     <div class="qtd"><button type="button" id="menos" aria-label="Diminuir quantidade">−</button><span id="qtd" aria-live="polite">1</span><button type="button" id="mais" aria-label="Aumentar quantidade">+</button></div>
@@ -68,25 +75,34 @@
 </main>
 <script src="produtos.js"></script>
 <script>
-const $=id=>document.getElementById(id), brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
-const id=+new URLSearchParams(location.search).get("id"), p=P[id];
+const id=+new URLSearchParams(location.search).get("id"),p=P[id];
 if(!p){
  $("conteudo").innerHTML='<p class="vazio" style="padding:60px 0">Produto não encontrado. <a href="produtos.html"><u>Ver todos os produtos</u></a></p>';
 }else{
- document.title=p[0]+" | Dellas Make-up";
- $("crumb").textContent=p[0]; $("pNome").textContent=p[0]; $("pPreco").textContent=brl(p[2]);
- $("pDesc").textContent=p[5]; $("pDesc2").textContent=p[5];
- $("pImg").setAttribute("viewBox",p[4]); $("pImg").innerHTML=`<use href="#${p[3]}"/>`;
- $("tomNome").textContent=p[6][0][0];
- $("tons").innerHTML=p[6].map((t,i)=>`<button type="button" class="tom" style="background:${t[1]}" data-n="${t[0]}" aria-label="Tom ${t[0]}" aria-pressed="${i===0}"></button>`).join("");
- $("tons").addEventListener("click",e=>{const b=e.target.closest(".tom");if(!b)return;
-  document.querySelectorAll(".tom").forEach(x=>x.setAttribute("aria-pressed",x===b));$("tomNome").textContent=b.dataset.n;});
+ document.title=p.nome+" | Dellas Make-up";
+ $("crumb").textContent=p.nome;$("pNome").textContent=p.nome;
+ $("pPreco").textContent=p.preco!=null?brl(p.preco):"Consulte o preço";$("pPix").hidden=p.preco==null;
+ $("pDesc").textContent=p.desc;$("pDesc2").textContent=p.desc;
+ const n=p.imgs.length;let cur=0;
+ function marcaTom(t){document.querySelectorAll(".tom").forEach((b,k)=>b.setAttribute("aria-pressed",k===t));$("tomNome").textContent=p.tons[t][0];}
+ function ir(i){cur=(i+n)%n;$("foto").src=p.imgs[cur];$("foto").alt=p.nome+", foto "+(cur+1);
+  document.querySelectorAll(".mini button").forEach((b,k)=>b.setAttribute("aria-current",k===cur));
+  if(p.tons){const t=p.tons.findIndex(x=>x[2]===cur);if(t>=0)marcaTom(t);}}
+ if(n>1){$("mini").innerHTML=p.imgs.map((s,k)=>`<button type="button" aria-label="Ver foto ${k+1}"><img src="${s}" alt=""></button>`).join("");
+  $("mini").addEventListener("click",e=>{const b=e.target.closest("button");if(b)ir([...$("mini").children].indexOf(b));});
+  $("ant").onclick=()=>ir(cur-1);$("prox").onclick=()=>ir(cur+1);
+  let x0=null;$("palco").addEventListener("touchstart",e=>x0=e.touches[0].clientX,{passive:true});
+  $("palco").addEventListener("touchend",e=>{if(x0===null)return;const d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>40)ir(cur+(d<0?1:-1));});
+ }else{$("ant").hidden=true;$("prox").hidden=true;$("mini").hidden=true;}
+ if(p.tons){$("tons").innerHTML=p.tons.map(t=>`<button type="button" class="tom" style="background:${t[1]}" aria-label="Tom ${t[0]}" aria-pressed="false"></button>`).join("");
+  marcaTom(0);
+  $("tons").addEventListener("click",e=>{const b=e.target.closest(".tom");if(!b)return;const t=[...$("tons").children].indexOf(b);marcaTom(t);if(typeof p.tons[t][2]==="number")ir(p.tons[t][2]);});
+ }else{$("rotulo").hidden=true;$("tons").hidden=true;}
+ ir(0);
  let q=1;const mostra=()=>$("qtd").textContent=q;
- $("menos").onclick=()=>{q=Math.max(1,q-1);mostra();};
- $("mais").onclick=()=>{q=Math.min(20,q+1);mostra();};
+ $("menos").onclick=()=>{q=Math.max(1,q-1);mostra();};$("mais").onclick=()=>{q=Math.min(20,q+1);mostra();};
  $("add").onclick=()=>{$("add").textContent="Adicionado";setTimeout(()=>$("add").textContent="Adicionar ao carrinho",1800);};
- $("similares").innerHTML=[1,2,3,4].map(k=>{const j=(id+k)%P.length,o=P[j];
-  return `<article class="card"><a class="img" href="produto.html?id=${j}"><svg viewBox="${o[4]}"><use href="#${o[3]}"/></svg></a><h3><a href="produto.html?id=${j}">${o[0]}</a></h3><span class="preco">${brl(o[2])}</span><span class="pix">à vista</span></article>`;}).join("");
+ $("similares").innerHTML=[1,2,3,4].map(k=>cartao((id+k)%P.length)).join("");
 }
 </script>
 
@@ -99,7 +115,7 @@ if(!p){
    </div>
    <div><h4>Institucional</h4><ul><li><a href="#">Sobre nós</a></li><li><a href="#">Política de privacidade</a></li><li><a href="#">Termos de uso</a></li></ul></div>
    <div><h4>Ajuda</h4><ul><li><a href="#">Dúvidas frequentes</a></li><li><a href="#">Trocas e devoluções</a></li><li><a href="#">Fale conosco</a></li></ul></div>
-   <div><h4>Redes sociais</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">TikTok</a></li><li><a href="#">WhatsApp</a></li></ul></div>
+   <div><h4>Redes sociais</h4><ul><li><a href="https://www.instagram.com/dellasmakeup10_" target="_blank" rel="noopener">Instagram @dellasmakeup10_</a></li><li><a href="#">TikTok</a></li><li><a href="#">WhatsApp</a></li></ul></div>
   </div>
   <p class="copy">© 2026 Dellas Make-up. Todos os direitos reservados.</p>
  </div>
