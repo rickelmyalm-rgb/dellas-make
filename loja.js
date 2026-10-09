@@ -40,9 +40,19 @@ function contadores(){
  [["nFav",favoritos.lista().length],["nCarrinho",carrinho.total()]].forEach(([id,n])=>{
   const e=document.getElementById(id);if(e){e.textContent=n>99?"99+":n;e.hidden=!n;}});
  document.querySelectorAll("[data-fav]").forEach(b=>{const on=favoritos.tem(+b.dataset.fav);
-  b.setAttribute("aria-pressed",on);const s=b.querySelector("span");if(s)s.textContent=on?"Favoritado":"Favoritar";});
+  b.setAttribute("aria-pressed",on);});
 }
 document.addEventListener("click",e=>{const b=e.target.closest("[data-fav]");if(!b)return;
  e.preventDefault();const on=favoritos.alternar(+b.dataset.fav);
  aviso(on?'Adicionado aos favoritos <a href="favoritos.html">Ver favoritos</a>':"Removido dos favoritos");});
+
+/* Botões "Comprar" e "Adicionar ao carrinho" dos cards.
+   Produtos com tons (cor) abrem a página do produto para a pessoa escolher o tom. */
+document.addEventListener("click",e=>{const b=e.target.closest("[data-comprar],[data-add]");if(!b)return;
+ const comprar=b.hasAttribute("data-comprar"),i=+(comprar?b.dataset.comprar:b.dataset.add),p=P[i];
+ if(!p)return;
+ if(p.tons){location.href="produto.html?id="+i+"#tons";return;}
+ carrinho.add(i,null,1);
+ if(comprar){location.href="carrinho.html";return;}
+ aviso('Adicionado ao carrinho <a href="carrinho.html">Ver carrinho</a>');});
 contadores();
