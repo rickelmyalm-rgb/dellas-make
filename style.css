@@ -236,7 +236,7 @@ input[type=radio]{accent-color:var(--vinho)}
 .caixa .rem{margin-top:14px}
 @media(max-width:820px){
  .carrinho{grid-template-columns:1fr}.resumo-pedido{position:static}
- .item{grid-template-columns:72px 1fr}.item .foto{width:2px;height:9px}
+ .item{grid-template-columns:72px 1fr}.item .foto{width:72px;height:90px}
  .item .dir{grid-column:1/-1;flex-direction:row;justify-content:space-between;align-items:center}
 }
 
