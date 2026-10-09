@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 
@@ -35,7 +35,7 @@
   <div class="acoes">
    <a href="conta.html" aria-label="Minha conta"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></a>
    <a href="favoritos.html" aria-label="Favoritos"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg><span class="badge" id="nFav" hidden>0</span></a>
-   <a href="carrinho.html" aria-label="Carrinho"><svg class="i" viewBox="0 0 24 24"><path d="M6 7h12l1 13H5zM9 7a3 3 0 0 1 6 0"/></svg><span class="badge" id="nCarrinho" hidden>0</span></a>
+   <a href="carrinho.html" aria-label="Carrinho"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.6 12.2a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 2-1.5L21.5 8H6"/></svg><span class="badge" id="nCarrinho" hidden>0</span></a>
   </div>
  </div>
  <nav aria-label="Categorias"><div class="wrap"><ul>
@@ -43,24 +43,36 @@
  </ul></div></nav>
 </header>
 
-<main class="wrap pagina">
- <h1 class="titulo">Minha conta</h1>
- <div id="conteudo"></div>
+<main class="conta-pagina">
+ <div class="conta-lado">
+  <div class="conta-texto">
+   <h2>Seja bem-vinda à Dellas Make-up!</h2>
+   <p>Entre para guardar seus produtos favoritos, avaliar e fazer pedidos com os seus dados já preenchidos.</p>
+   <ul>
+    <li><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg><span><b>Favoritos</b>guarde o que você amou</span></li>
+    <li><svg class="i" viewBox="0 0 24 24"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg><span><b>Avaliações</b>conte o que achou dos produtos</span></li>
+    <li><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.6 12.2a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 2-1.5L21.5 8H6"/></svg><span><b>Pedido rápido</b>seus dados já preenchidos</span></li>
+   </ul>
+  </div>
+  <img src="foto-hero.webp" alt="">
+ </div>
+ <div class="conta-dir"><div class="conta-cartao" id="conteudo"></div></div>
 </main>
-<script src="produtos.js"></script>
-<script src="loja.js"></script>
+<script src="produtos.js?v=4"></script>
+<script src="loja.js?v=4"></script>
 <script>
 const voltar=new URLSearchParams(location.search).get("voltar");
 const destino=/^[a-z]+\.html(\?[A-Za-z0-9=&_-]*)?$/.test(voltar||"")?voltar:null;
-function formulario(d){
- $("conteudo").innerHTML=`<form id="f" class="form"><label>Nome<input name="nome" required maxlength="60" autocomplete="name" value="${esc(d.nome||"")}"></label><label>WhatsApp (com DDD)<input name="whats" required inputmode="tel" autocomplete="tel" placeholder="86 99999-9999" value="${esc(d.whats||"")}"></label><label>Cidade<select name="cidade" required><option value="">Escolha sua cidade</option>${CIDADES.map(x=>`<option${x===d.cidade?" selected":""}>${esc(x)}</option>`).join("")}</select></label><p class="erro" id="erro" role="alert"></p><button class="btn" type="submit">${d.nome?"Salvar":"Entrar"}</button><p class="nota-texto">Não precisa de senha: seus dados ficam salvos neste aparelho para agilizar pedidos e avaliações.</p></form>`;
+const cereja='<svg class="cereja-v" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 4c-3 8-6 14-8 20M20 4c1 6 4 12 8 18" fill="none" stroke="#880E1A" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="29" r="7.5" fill="#880E1A"/><circle cx="28" cy="27" r="7.5" fill="#880E1A"/></svg>';
+function formulario(d){const novo=!d.nome;
+ $("conteudo").innerHTML=`${cereja}<h1>${novo?"Criar sua conta":"Editar seus dados"}</h1><p class="sub">Preencha os dados abaixo${novo?" para se cadastrar":""}.</p><form id="f" class="form"><label>Nome completo *<input name="nome" required maxlength="60" autocomplete="name" placeholder="Digite seu nome completo" value="${esc(d.nome||"")}"></label><label>WhatsApp (com DDD) *<input name="whats" required inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000" value="${esc(d.whats||"")}"></label><label>Cidade *<select name="cidade" required><option value="">Escolha sua cidade</option>${CIDADES.map(x=>`<option${x===d.cidade?" selected":""}>${esc(x)}</option>`).join("")}</select></label><p class="erro" id="erro" role="alert"></p><button class="btn" type="submit">${novo?"Cadastrar e entrar":"Salvar"}</button><p class="nota-texto">Não precisa de senha: seus dados ficam salvos neste aparelho para agilizar pedidos e avaliações.</p></form>`;
  $("f").addEventListener("submit",e=>{e.preventDefault();const f=e.target,w=f.whats.value.replace(/\D/g,"");
-  if(w.length<10||w.length>13){$("erro").textContent="Digite o WhatsApp com DDD. Ex.: 86 99999-9999";return;}
+  if(w.length<10||w.length>13){$("erro").textContent="Digite o WhatsApp com DDD. Ex.: (86) 99999-9999";return;}
   conta.salvar({uid:d.uid||(crypto.randomUUID?crypto.randomUUID():String(Date.now())),nome:f.nome.value.trim(),whats:f.whats.value.trim(),cidade:f.cidade.value});
   if(destino)location.href=destino;else perfil();});
 }
 function perfil(){const c=conta.ler();
- $("conteudo").innerHTML=`<div class="caixa perfil"><p><b>${esc(c.nome)}</b></p><p>WhatsApp: ${esc(c.whats)}</p><p>Cidade: ${esc(c.cidade)}</p><p class="botoes"><a class="btn" href="favoritos.html">Meus favoritos</a> <a class="btn vazado" href="carrinho.html">Carrinho</a></p><p><button type="button" class="rem" id="editar">Editar dados</button> · <button type="button" class="rem" id="sair">Sair</button></p></div>`;
+ $("conteudo").innerHTML=`${cereja}<h1>Olá, ${esc(c.nome.split(" ")[0])}!</h1><p class="sub">Seus dados neste aparelho.</p><dl class="dados"><dt>Nome</dt><dd>${esc(c.nome)}</dd><dt>WhatsApp</dt><dd>${esc(c.whats)}</dd><dt>Cidade</dt><dd>${esc(c.cidade)}</dd></dl><p class="botoes"><a class="btn" href="favoritos.html">Meus favoritos</a><a class="btn vazado" href="carrinho.html">Carrinho</a></p><p><button type="button" class="rem" id="editar">Editar dados</button> · <button type="button" class="rem" id="sair">Sair</button></p>`;
  $("editar").onclick=()=>formulario(c);$("sair").onclick=()=>{conta.sair();formulario({});};}
 conta.ler()?perfil():formulario({});
 </script>

@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 
@@ -35,7 +35,7 @@
   <div class="acoes">
    <a href="conta.html" aria-label="Minha conta"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></a>
    <a href="favoritos.html" aria-label="Favoritos"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg><span class="badge" id="nFav" hidden>0</span></a>
-   <a href="carrinho.html" aria-label="Carrinho"><svg class="i" viewBox="0 0 24 24"><path d="M6 7h12l1 13H5zM9 7a3 3 0 0 1 6 0"/></svg><span class="badge" id="nCarrinho" hidden>0</span></a>
+   <a href="carrinho.html" aria-label="Carrinho"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.6 12.2a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 2-1.5L21.5 8H6"/></svg><span class="badge" id="nCarrinho" hidden>0</span></a>
   </div>
  </div>
  <nav aria-label="Categorias"><div class="wrap"><ul>
@@ -48,6 +48,7 @@
  <div class="produto">
   <div class="galeria">
    <div class="principal" id="palco">
+    <button type="button" class="fav" id="favBtn" aria-pressed="false" aria-label="Favoritar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg></button>
     <img id="foto" alt="">
     <button type="button" class="seta ant" id="ant" aria-label="Foto anterior">‹</button>
     <button type="button" class="seta prox" id="prox" aria-label="Próxima foto">›</button>
@@ -57,15 +58,15 @@
   <div class="info">
    <h1 id="pNome"></h1>
    <span class="preco" id="pPreco"></span>
-   <span class="pix" id="pPix">à vista, em dinheiro ou Pix</span>
+   <span class="pix" id="pPix">à vista (Pix ou dinheiro)</span>
    <p class="resumo" id="pDesc"></p>
-   <button type="button" class="fav fav-texto" id="favBtn" aria-pressed="false"><b aria-hidden="true">♥</b><span>Favoritar</span></button>
    <p class="rotulo" id="rotulo">Tom: <b id="tomNome"></b></p>
    <div class="tons" id="tons"></div>
    <div class="compra">
     <div class="qtd"><button type="button" id="menos" aria-label="Diminuir quantidade">−</button><span id="qtd" aria-live="polite">1</span><button type="button" id="mais" aria-label="Aumentar quantidade">+</button></div>
     <button type="button" class="btn" id="add">Adicionar ao carrinho</button>
    </div>
+   <button type="button" class="btn vazado comprar" id="comprar">Comprar agora</button>
    <!-- Textos de exemplo: troque pelas informações reais de cada produto -->
    <details open><summary>Descrição</summary><p id="pDesc2"></p></details>
    <details><summary>Modo de uso</summary><p>Aplique seguindo a orientação do fabricante, que está na embalagem.</p></details>
@@ -80,8 +81,8 @@
  </section>
  <div style="padding-top:44px"><h2>Você também pode gostar</h2><div class="grade" id="similares"></div></div>
 </main>
-<script src="produtos.js"></script>
-<script src="loja.js"></script>
+<script src="produtos.js?v=4"></script>
+<script src="loja.js?v=4"></script>
 <script>
 const id=+new URLSearchParams(location.search).get("id"),p=P[id];
 if(!p){
@@ -113,6 +114,7 @@ if(!p){
  $("menos").onclick=()=>{q=Math.max(1,q-1);mostra();};$("mais").onclick=()=>{q=Math.min(20,q+1);mostra();};
  $("add").onclick=()=>{carrinho.add(id,tomSel(),q);aviso('Adicionado ao carrinho <a href="carrinho.html">Ver carrinho</a>');
   $("add").textContent="Adicionado";setTimeout(()=>$("add").textContent="Adicionar ao carrinho",1800);};
+ $("comprar").onclick=()=>{carrinho.add(id,tomSel(),q);location.href="carrinho.html";};
  $("similares").innerHTML=[1,2,3,4].map(k=>cartao((id+k)%P.length)).join("");
 
  /* ---- avaliações e comentários ---- */

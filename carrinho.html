@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 
@@ -35,7 +35,7 @@
   <div class="acoes">
    <a href="conta.html" aria-label="Minha conta"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></a>
    <a href="favoritos.html" aria-label="Favoritos"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg><span class="badge" id="nFav" hidden>0</span></a>
-   <a href="carrinho.html" aria-label="Carrinho"><svg class="i" viewBox="0 0 24 24"><path d="M6 7h12l1 13H5zM9 7a3 3 0 0 1 6 0"/></svg><span class="badge" id="nCarrinho" hidden>0</span></a>
+   <a href="carrinho.html" aria-label="Carrinho"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.6 12.2a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 2-1.5L21.5 8H6"/></svg><span class="badge" id="nCarrinho" hidden>0</span></a>
   </div>
  </div>
  <nav aria-label="Categorias"><div class="wrap"><ul>
@@ -69,8 +69,8 @@
   </aside>
  </div>
 </main>
-<script src="produtos.js"></script>
-<script src="loja.js"></script>
+<script src="produtos.js?v=4"></script>
+<script src="loja.js?v=4"></script>
 <script>
 const lista=()=>carrinho.itens().filter(i=>P[i.id]);
 const somar=l=>l.reduce((s,i)=>s+(P[i.id].preco??0)*i.qtd,0);

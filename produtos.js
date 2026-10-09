@@ -24,5 +24,7 @@ const P=[
 const $=id=>document.getElementById(id);
 const brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 const CORACAO='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg>';
-function cartao(i){const p=P[i],l="produto.html?id="+i,f=typeof isFav==="function"&&isFav(i);
- return `<article class="card"><a class="img" href="${l}"><img src="${p.imgs[0]}" alt="${p.nome}" loading="lazy"${p.pos?` style="object-position:${p.pos}"`:""}></a><button type="button" class="fav" data-fav="${i}" aria-pressed="${f}" aria-label="Favoritar ${p.nome}">${CORACAO}</button><h3><a href="${l}">${p.nome}</a></h3>${p.preco!=null?`<span class="preco">${brl(p.preco)}</span><span class="pix">à vista (Pix ou dinheiro)</span>`:`<span class="pix">Consulte o preço</span>`}<div class="cbtns"><button type="button" class="btn" data-comprar="${i}" aria-label="Comprar ${p.nome}">Comprar</button><button type="button" class="btn vazado" data-add="${i}" aria-label="Adicionar ${p.nome} ao carrinho">Adicionar ao carrinho</button></div></article>`;}
+function cartao(i){const p=P[i],l="produto.html?id="+i,f=typeof isFav==="function"&&isFav(i),escolher=p.tons&&p.tons.length>1;
+ const valor=p.preco!=null?`<p class="valor"><b class="preco">${brl(p.preco)}</b><span class="pix">à vista (Pix ou dinheiro)</span></p>`:`<p class="valor"><span class="pix">Consulte o preço</span></p>`;
+ const botao=escolher?`<a class="btn-card alt" href="${l}">Escolher tom</a>`:`<button type="button" class="btn-card" data-add="${i}">Adicionar ao carrinho</button>`;
+ return `<article class="card"><a class="img" href="${l}"><img src="${p.imgs[0]}" alt="${p.nome}" loading="lazy"${p.pos?` style="object-position:${p.pos}"`:""}></a><button type="button" class="fav" data-fav="${i}" aria-pressed="${f}" aria-label="Favoritar ${p.nome}">${CORACAO}</button><h3><a href="${l}">${p.nome}</a></h3>${valor}${botao}</article>`;}
