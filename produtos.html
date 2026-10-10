@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 
@@ -28,8 +28,8 @@
    <svg width="38" height="38"><use href="#cereja"/></svg>
    <span><b>dellas</b><small>MAKE-UP</small></span>
   </a>
-  <form class="busca" role="search" onsubmit="return false">
-   <input type="search" placeholder="O que você procura?" aria-label="Buscar produtos">
+  <form class="busca" role="search" action="produtos.html" method="get">
+   <input type="search" name="q" placeholder="O que você procura?" aria-label="Buscar produtos">
    <button type="submit" aria-label="Buscar"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
   </form>
   <div class="acoes">
@@ -39,19 +39,19 @@
   </div>
  </div>
  <nav aria-label="Categorias"><div class="wrap"><ul>
-  <li><a href="index.html">Início</a></li><li><a href="produtos.html" aria-current="page">Maquiagens</a></li><li><a href="#">Skincare</a></li><li><a href="#">Kits</a></li><li><a href="#lancamentos">Lançamentos</a></li><li><a href="#">Ofertas</a></li>
+  <li><a href="index.html">Início</a></li><li><a href="produtos.html" aria-current="page">Maquiagens</a></li><li><a href="produtos.html?cat=skincare">Skincare</a></li><li><a href="produtos.html?cat=esponjas">Kits</a></li><li><a href="produtos.html?cat=lancamentos">Lançamentos</a></li><li><a href="ofertas.html">Ofertas</a></li>
  </ul></div></nav>
 </header>
 
 <main>
  <div class="wrap loja">
-  <aside class="filtros" aria-label="Filtros">
-   <h2>Maquiagens</h2>
+  <aside class="filtros" aria-label="Categorias">
+   <h2>Categorias</h2>
    <ul id="cats"></ul>
   </aside>
   <div>
    <div class="destaque">
-    <div><h1>Maquiagens para todos os momentos</h1><p>Do dia a dia às grandes ocasiões. Encontre o produto ideal para você.</p></div>
+    <div><h1 id="secTitulo"></h1><p id="secTexto"></p></div>
     <img src="p-gloss-vitrine.webp" alt="">
    </div>
    <div class="barra"><span id="contagem" aria-live="polite"></span></div>
@@ -59,20 +59,30 @@
   </div>
  </div>
 </main>
-<script src="produtos.js?v=4"></script>
-<script src="loja.js?v=4"></script>
+<script src="produtos.js?v=6"></script>
+<script src="loja.js?v=6"></script>
 <script>
-const CATS=[["todos","Todos"],["base","Base"],["corretivo","Corretivo"],["po","Pó"],["blush","Blush"],["iluminador","Iluminador"],["gloss","Gloss"],["cilios","Cílios"],["sobrancelha","Sobrancelha"],["esponjas","Esponjas e kits"],["skincare","Skincare"],["blindagem","Blindagem"]];
-const q=new URLSearchParams(location.search).get("cat");
-let cat=CATS.some(c=>c[0]===q)?q:"todos";
-function lista(){$("cats").innerHTML=CATS.map(([k,n])=>`<li><button type="button" data-k="${k}" aria-pressed="${k===cat}">${n}</button></li>`).join("");}
+const CATS=[["todos","Todos"],["lancamentos","Lançamentos"],["base","Base"],["corretivo","Corretivo"],["po","Pó"],["blush","Blush"],["iluminador","Iluminador"],["gloss","Gloss"],["cilios","Cílios"],["sobrancelha","Sobrancelha"],["esponjas","Kits"],["skincare","Skincare"],["blindagem","Blindagem"]];
+const SECOES={todos:["Maquiagens para todos os momentos","Do dia a dia às grandes ocasiões. Encontre o produto ideal para você."],skincare:["Skincare","Cuidados para a pele do rosto e do corpo."],esponjas:["Kits","Esponjas, puffs e acessórios para uma make perfeita."],lancamentos:["Lançamentos","As novidades que acabaram de chegar à loja."]};
+const NAV={skincare:"Skincare",esponjas:"Kits",lancamentos:"Lançamentos"};
+const url=new URLSearchParams(location.search),campo=document.querySelector(".busca input");
+let cat=CATS.some(c=>c[0]===url.get("cat"))?url.get("cat"):"todos",termo=(url.get("q")||"").trim();
+if(termo)campo.value=termo;
+function lista(){$("cats").innerHTML=CATS.map(([k,n])=>`<li><button type="button" data-k="${k}" aria-pressed="${!termo&&k===cat}">${n}</button></li>`).join("");}
+function secao(){const s=SECOES[cat]||SECOES.todos;
+ $("secTitulo").textContent=termo?"Resultados da busca":s[0];
+ $("secTexto").textContent=termo?`Produtos encontrados para “${termo}”.`:s[1];
+ document.title=(termo?"Busca":(SECOES[cat]&&cat!=="todos"?s[0]:"Maquiagens"))+" | Dellas Make-up";
+ const alvo=termo?"":(NAV[cat]||"Maquiagens");
+ document.querySelectorAll("nav a").forEach(a=>{a.removeAttribute("aria-current");if(alvo&&a.textContent.trim()===alvo)a.setAttribute("aria-current","page");});}
 function mostrar(){
- const r=P.filter(p=>cat==="todos"||p.cat===cat);
- $("contagem").textContent=`Exibindo ${r.length} de ${P.length} produtos`;
- $("grade").innerHTML=r.length?r.map(p=>cartao(P.indexOf(p))).join(""):`<p class="vazio">Nenhum produto nessa categoria.</p>`;
+ const ids=termo?buscar(termo):P.map((p,i)=>i).filter(i=>cat==="todos"||(cat==="lancamentos"?P[i].lancamento:P[i].cat===cat));
+ $("contagem").textContent=`Exibindo ${ids.length} de ${P.length} produtos`;
+ $("grade").innerHTML=ids.length?ids.map(i=>cartao(i)).join(""):`<p class="vazio">${termo?`Nenhum produto encontrado para “${esc(termo)}”. Tente outra palavra ou <a href="produtos.html"><u>veja todos os produtos</u></a>.`:"Nenhum produto nessa categoria."}</p>`;
 }
-$("cats").addEventListener("click",e=>{const b=e.target.closest("button");if(b){cat=b.dataset.k;lista();mostrar();}});
-lista();mostrar();
+$("cats").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;cat=b.dataset.k;termo="";campo.value="";
+ history.replaceState(null,"",cat==="todos"?location.pathname:"?cat="+cat);lista();secao();mostrar();});
+lista();secao();mostrar();
 </script>
 
 <footer>

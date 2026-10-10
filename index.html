@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 
@@ -28,8 +28,8 @@
    <svg width="38" height="38"><use href="#cereja"/></svg>
    <span><b>dellas</b><small>MAKE-UP</small></span>
   </a>
-  <form class="busca" role="search" onsubmit="return false">
-   <input type="search" placeholder="O que você procura?" aria-label="Buscar produtos">
+  <form class="busca" role="search" action="produtos.html" method="get">
+   <input type="search" name="q" placeholder="O que você procura?" aria-label="Buscar produtos">
    <button type="submit" aria-label="Buscar"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
   </form>
   <div class="acoes">
@@ -39,7 +39,7 @@
   </div>
  </div>
  <nav aria-label="Categorias"><div class="wrap"><ul>
-  <li><a href="#">Início</a></li><li><a href="produtos.html">Maquiagens</a></li><li><a href="#">Skincare</a></li><li><a href="#">Kits</a></li><li><a href="#lancamentos">Lançamentos</a></li><li><a href="#">Ofertas</a></li>
+  <li><a href="#">Início</a></li><li><a href="produtos.html">Maquiagens</a></li><li><a href="produtos.html?cat=skincare">Skincare</a></li><li><a href="produtos.html?cat=esponjas">Kits</a></li><li><a href="produtos.html?cat=lancamentos">Lançamentos</a></li><li><a href="ofertas.html">Ofertas</a></li>
  </ul></div></nav>
 </header>
 
@@ -48,14 +48,14 @@
   <div>
    <h1>Sua beleza, do seu jeito</h1>
    <p>Batons, bases, paletas e skincare para o dia a dia e para as grandes ocasiões. Escolha, pague em dinheiro ou Pix e receba em casa.</p>
-   <a class="btn claro" href="#lancamentos">Ver lançamentos</a>
+   <a class="btn claro" href="produtos.html?cat=lancamentos">Ver lançamentos</a>
   </div>
   <img src="foto-hero.webp" width="720" height="832" alt="Mulher sorrindo com maquiagem e batom vinho">
  </div></div>
 
  <div class="wrap">
   <div class="vant">
-   <div><svg class="i" viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg><span><strong>Entrega no Piauí</strong>veja as cidades atendidas</span></div>
+   <a href="#cidades" id="verCidades"><svg class="i" viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg><span><strong>Entrega no Piauí</strong>veja as cidades atendidas</span></a>
    <div><svg class="i" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg><span><strong>Dinheiro ou Pix</strong>escolha como prefere pagar</span></div>
    <div><svg class="i" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5l2 2M20 12a8 8 0 0 1-14 5l-2-2M20 4v5h-5M4 20v-5h5"/></svg><span><strong>Troca facilitada</strong>veja a política de trocas</span></div>
    <div><svg class="i" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg><span><strong>Atendimento no WhatsApp</strong>tire dúvidas antes de comprar</span></div>
@@ -71,7 +71,7 @@
     <div>
      <h2>Lançamentos que você vai amar</h2>
      <p>Novas cores e novas sensações chegando à loja. Confira antes que acabem.</p>
-     <a class="btn claro" href="#">Ver lançamentos</a>
+     <a class="btn claro" href="produtos.html?cat=lancamentos">Ver lançamentos</a>
     </div>
     <div class="vitrine" aria-hidden="true"><img src="p-gloss-rosa.webp" alt=""><img src="p-kit-esponja-2.webp" alt=""></div>
    </div>
@@ -108,8 +108,11 @@
  </div>
 </footer>
 
-<script src="produtos.js?v=4"></script>
-<script src="loja.js?v=4"></script>
-<script>$("vendidos").innerHTML=[0,1,4,5].map(cartao).join("");</script>
+<script src="produtos.js?v=6"></script>
+<script src="loja.js?v=6"></script>
+<script>$("vendidos").innerHTML=[0,1,4,5].map(cartao).join("");
+$("verCidades").addEventListener("click",e=>{e.preventDefault();const s=$("cidades"),calmo=matchMedia("(prefers-reduced-motion:reduce)").matches;
+ s.scrollIntoView({behavior:calmo?"auto":"smooth",block:"center"});s.classList.add("destacar");
+ clearTimeout(window._dest);window._dest=setTimeout(()=>s.classList.remove("destacar"),2800);});</script>
 </body>
 </html>

@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 
@@ -28,8 +28,8 @@
    <svg width="38" height="38"><use href="#cereja"/></svg>
    <span><b>dellas</b><small>MAKE-UP</small></span>
   </a>
-  <form class="busca" role="search" onsubmit="return false">
-   <input type="search" placeholder="O que você procura?" aria-label="Buscar produtos">
+  <form class="busca" role="search" action="produtos.html" method="get">
+   <input type="search" name="q" placeholder="O que você procura?" aria-label="Buscar produtos">
    <button type="submit" aria-label="Buscar"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
   </form>
   <div class="acoes">
@@ -39,7 +39,7 @@
   </div>
  </div>
  <nav aria-label="Categorias"><div class="wrap"><ul>
-  <li><a href="index.html">Início</a></li><li><a href="produtos.html">Maquiagens</a></li><li><a href="#">Skincare</a></li><li><a href="#">Kits</a></li><li><a href="#lancamentos">Lançamentos</a></li><li><a href="#">Ofertas</a></li>
+  <li><a href="index.html">Início</a></li><li><a href="produtos.html">Maquiagens</a></li><li><a href="produtos.html?cat=skincare">Skincare</a></li><li><a href="produtos.html?cat=esponjas">Kits</a></li><li><a href="produtos.html?cat=lancamentos">Lançamentos</a></li><li><a href="ofertas.html">Ofertas</a></li>
  </ul></div></nav>
 </header>
 
@@ -51,26 +51,33 @@
   <aside class="caixa">
    <h2>Resumo do pedido</h2>
    <div class="linha"><span>Subtotal</span><span id="sub"></span></div>
-   <div class="linha"><span>Entrega</span><span>a combinar</span></div>
    <div class="linha total"><span>Total</span><span id="total"></span></div>
    <form id="pedido" class="form">
     <label>Nome<input name="nome" required maxlength="60" autocomplete="name"></label>
     <label>WhatsApp (com DDD)<input name="whats" required inputmode="tel" autocomplete="tel" placeholder="86 99999-9999"></label>
-    <label>Cidade<select name="cidade" required><option value="">Escolha sua cidade</option></select></label>
+    <div class="radios" role="radiogroup" aria-label="Como você quer receber"><b>Como você quer receber?</b>
+     <label><input type="radio" name="receber" value="Retirada" required> Retirada</label>
+     <label><input type="radio" name="receber" value="Entrega"> Entrega</label></div>
+    <fieldset id="blocoEntrega" hidden disabled>
+     <label>Cidade<select name="cidade" required><option value="">Escolha sua cidade</option></select></label>
+     <label>Rua<input type="text" name="rua" required maxlength="80" autocomplete="street-address" placeholder="Nome da rua"></label>
+     <label>Bairro<input type="text" name="bairro" required maxlength="60" placeholder="Seu bairro"></label>
+     <label>Número<input type="text" name="numero" required maxlength="10" placeholder="Ex.: 123 ou s/n"></label>
+    </fieldset>
     <div class="radios" role="radiogroup" aria-label="Forma de pagamento"><b>Pagamento</b>
      <label><input type="radio" name="pag" value="Dinheiro" checked> Dinheiro</label>
      <label><input type="radio" name="pag" value="Pix"> Pix</label></div>
     <label>Observações (opcional)<textarea name="obs" rows="2" maxlength="300"></textarea></label>
     <p class="erro" id="erro" role="alert"></p>
     <button class="btn" type="submit">Enviar pedido pelo WhatsApp</button>
-    <p class="nota-texto">O pedido abre no seu WhatsApp e o pagamento e a entrega são combinados por lá.</p>
+    <p class="nota-texto">O pedido abre no seu WhatsApp e o pagamento é combinado por lá.</p>
    </form>
    <button type="button" class="rem" id="limpar">Esvaziar carrinho</button>
   </aside>
  </div>
 </main>
-<script src="produtos.js?v=4"></script>
-<script src="loja.js?v=4"></script>
+<script src="produtos.js?v=6"></script>
+<script src="loja.js?v=6"></script>
 <script>
 const lista=()=>carrinho.itens().filter(i=>P[i.id]);
 const somar=l=>l.reduce((s,i)=>s+(P[i.id].preco??0)*i.qtd,0);
@@ -78,6 +85,7 @@ const f=$("pedido");
 f.cidade.insertAdjacentHTML("beforeend",CIDADES.map(x=>`<option>${esc(x)}</option>`).join(""));
 const c=conta.ler();if(c){f.nome.value=c.nome;f.whats.value=c.whats;f.cidade.value=c.cidade;}
 else $("limpar").insertAdjacentHTML("beforebegin",'<p class="nota-texto"><a href="conta.html?voltar=carrinho.html"><u>Entre na sua conta</u> para preencher seus dados automaticamente.</a></p>');
+f.addEventListener("change",e=>{if(e.target.name!=="receber")return;const ent=f.receber.value==="Entrega";$("blocoEntrega").hidden=!ent;$("blocoEntrega").disabled=!ent;});
 function desenhar(){
  const l=lista();$("vazio").hidden=l.length>0;$("cheio").hidden=!l.length;if(!l.length)return;
  $("itens").innerHTML=l.map((it,k)=>{const p=P[it.id];
@@ -93,7 +101,9 @@ f.addEventListener("submit",e=>{e.preventDefault();const l=lista();if(!l.length)
  if(!WHATSAPP){$("erro").textContent="O número de WhatsApp da loja ainda não foi configurado (arquivo produtos.js).";return;}
  $("erro").textContent="";
  const linhas=l.map(i=>{const p=P[i.id];return `• ${i.qtd}x ${p.nome}${i.tom?` (tom ${i.tom})`:""} - ${brl((p.preco??0)*i.qtd)}`;}).join("\n");
- const msg=`Olá! Quero fazer um pedido na Dellas Make-up:\n\n${linhas}\n\n*Total:* ${brl(somar(l))} (entrega a combinar)\n*Nome:* ${f.nome.value.trim()}\n*WhatsApp:* ${f.whats.value.trim()}\n*Cidade:* ${f.cidade.value}\n*Pagamento:* ${f.pag.value}${f.obs.value.trim()?`\n*Obs.:* ${f.obs.value.trim()}`:""}`;
+ const ent=f.receber.value==="Entrega";
+ const receb=ent?`Entrega\n*Endereço:* ${f.rua.value.trim()}, nº ${f.numero.value.trim()}, ${f.bairro.value.trim()} - ${f.cidade.value}`:"Retirada";
+ const msg=`Olá! Quero fazer um pedido na Dellas Make-up:\n\n${linhas}\n\n*Total:* ${brl(somar(l))}\n*Nome:* ${f.nome.value.trim()}\n*WhatsApp:* ${f.whats.value.trim()}\n*Recebimento:* ${receb}\n*Pagamento:* ${f.pag.value}${f.obs.value.trim()?`\n*Obs.:* ${f.obs.value.trim()}`:""}`;
  window.open("https://wa.me/"+WHATSAPP.replace(/\D/g,"")+"?text="+encodeURIComponent(msg),"_blank","noopener");});
 desenhar();
 </script>

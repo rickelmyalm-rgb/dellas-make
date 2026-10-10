@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 
@@ -28,8 +28,8 @@
    <svg width="38" height="38"><use href="#cereja"/></svg>
    <span><b>dellas</b><small>MAKE-UP</small></span>
   </a>
-  <form class="busca" role="search" onsubmit="return false">
-   <input type="search" placeholder="O que você procura?" aria-label="Buscar produtos">
+  <form class="busca" role="search" action="produtos.html" method="get">
+   <input type="search" name="q" placeholder="O que você procura?" aria-label="Buscar produtos">
    <button type="submit" aria-label="Buscar"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
   </form>
   <div class="acoes">
@@ -39,7 +39,7 @@
   </div>
  </div>
  <nav aria-label="Categorias"><div class="wrap"><ul>
-  <li><a href="index.html">Início</a></li><li><a href="produtos.html">Maquiagens</a></li><li><a href="#">Skincare</a></li><li><a href="#">Kits</a></li><li><a href="#lancamentos">Lançamentos</a></li><li><a href="#">Ofertas</a></li>
+  <li><a href="index.html">Início</a></li><li><a href="produtos.html">Maquiagens</a></li><li><a href="produtos.html?cat=skincare">Skincare</a></li><li><a href="produtos.html?cat=esponjas">Kits</a></li><li><a href="produtos.html?cat=lancamentos">Lançamentos</a></li><li><a href="ofertas.html">Ofertas</a></li>
  </ul></div></nav>
 </header>
 
@@ -58,8 +58,8 @@
  </div>
  <div class="conta-dir"><div class="conta-cartao" id="conteudo"></div></div>
 </main>
-<script src="produtos.js?v=4"></script>
-<script src="loja.js?v=4"></script>
+<script src="produtos.js?v=6"></script>
+<script src="loja.js?v=6"></script>
 <script>
 const voltar=new URLSearchParams(location.search).get("voltar");
 const destino=/^[a-z]+\.html(\?[A-Za-z0-9=&_-]*)?$/.test(voltar||"")?voltar:null;
