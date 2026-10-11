@@ -13,7 +13,7 @@ const P=[
 {nome:"Espuma de Limpeza",cat:"skincare",preco:10,desc:"Espuma de limpeza para rosto e corpo, de textura leve, com aloe vera.",imgs:["p-espuma.webp"]},
 {nome:"Gel de Sobrancelha",cat:"sobrancelha",preco:10,desc:"Gel que modela e fixa os fios da sobrancelha, com aplicador prático.",imgs:["p-gel-1.webp","p-gel-2.webp"]},
 {nome:"Máscara de Cílios Febella",cat:"cilios",preco:10,desc:"Máscara de cílios 2 em 1: gire a ponta para escolher o volume desejado. Volume intenso e alongador.",imgs:["p-mascara.webp"]},
-{nome:"Corretivo",cat:"corretivo",preco:10,desc:"Corretivo líquido (concealer).",imgs:["p-corretivo-1.webp","p-corretivo-2.webp"]},
+{nome:"Corretivo",cat:"corretivo",preco:10,desc:"Corretivo líquido (concealer). Disponível em 6 tons.",imgs:["p-corretivo-1.webp","p-corretivo-2.webp"],tons:[["01","#bfa284"],["02","#c29f7b"],["03","#bb9870"],["04","#c29b71"],["05","#b38554"],["06","#9c6d39"]]},
 {nome:"Kit de Esponja",cat:"esponjas",preco:10,desc:"Kit com esponjas de maquiagem em vários formatos e puffs para pó.",imgs:["p-kit-esponja-1.webp"],pos:"30% 50%"},
 {nome:"Kit Piranha",cat:"esponjas",lancamento:true,preco:10,desc:"Kit com esponja, puff de veludo e piranha (garra de cabelo) em formato de flor, em várias cores.",imgs:["p-kit-esponja-2.webp"]},
 {nome:"Blindagem PlayBoy",cat:"blindagem",preco:10,desc:"Blindagem de 15 ml com fixação extrema, para uma maquiagem resistente à água e de alta durabilidade.",imgs:["p-blindagem.webp"]},
@@ -22,7 +22,7 @@ const P=[
 {nome:"Blush",cat:"blush",preco:10,desc:"Foto e detalhes em breve.",imgs:["p-em-breve.svg"]},
 {nome:"Iluminador",cat:"iluminador",preco:10,desc:"Foto e detalhes em breve.",imgs:["p-em-breve.svg"]},
 {nome:"Máscara de Cílios Love Rain",cat:"cilios",preco:10,desc:"Máscara de cílios The Huge Lash Power.",imgs:["p-mascara-loverain.webp"]},
-{nome:"Base Líquida Briá Beauty",cat:"base",preco:10,desc:"Base líquida oil free (25 g) com rosa mosqueta, chá verde e vitamina E.",imgs:["p-base-bria.webp"]}
+{nome:"Base Líquida Briá Beauty",cat:"base",preco:10,desc:"Base líquida oil free (25 g) com rosa mosqueta, chá verde e vitamina E. Disponível em 3 tons.",imgs:["p-base-bria.webp"],tons:[["01","#f5a279"],["02","#e48a59"],["03","#d88048"]]}
 ];
 const $=id=>document.getElementById(id);
 const brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
