@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Avaliações dos produtos: todo mundo lê; cada pessoa grava e apaga só a própria avaliação.
+    match /avaliacoes/{id} {
+      allow read: if true;
+
+      allow create, update: if request.auth != null
+        && request.resource.data.keys().hasOnly(['produto','uid','nome','nota','texto','data','criadoEm'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.produto is string
+        && id == request.resource.data.produto + '_' + request.auth.uid
+        && request.resource.data.nota is number
+        && request.resource.data.nota >= 1 && request.resource.data.nota <= 5
+        && request.resource.data.nome is string
+        && request.resource.data.nome.size() > 0 && request.resource.data.nome.size() <= 40
+        && request.resource.data.texto is string
+        && request.resource.data.texto.size() <= 500
+        && request.resource.data.data is string
+        && request.resource.data.data.size() <= 12
+        && request.resource.data.criadoEm == request.time;
+
+      allow delete: if request.auth != null && resource.data.uid == request.auth.uid;
+    }
+  }
+}

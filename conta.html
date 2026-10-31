@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minha conta | Dellas Make-up</title>
+<meta name="description" content="Batons, bases, corretivos, paletas e mais. Compre na Dellas Make-up e pague em dinheiro ou Pix.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=12">
+</head>
+<body>
+
+<!-- Ícones reutilizáveis -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <symbol id="cereja" viewBox="0 0 40 40"><path d="M20 4c-3 8-6 14-8 20M20 4c1 6 4 12 8 18" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="29" r="7.5" fill="#fff"/><circle cx="28" cy="27" r="7.5" fill="#fff"/></symbol>
+ <symbol id="batom" viewBox="0 0 48 70"><path d="M17 38V20q0-9 7-14q7 5 7 14v18z" fill="#880E1A"/><rect x="14" y="38" width="20" height="26" rx="2" fill="#3b0a10"/><rect x="14" y="38" width="20" height="4" fill="#c9a24a"/></symbol>
+ <symbol id="base" viewBox="0 0 48 70"><rect x="18" y="4" width="12" height="14" rx="2" fill="#3b0a10"/><rect x="12" y="18" width="24" height="46" rx="6" fill="#e3b08e"/><rect x="16" y="30" width="16" height="14" rx="2" fill="#fff" opacity=".55"/></symbol>
+ <symbol id="rimel" viewBox="0 0 48 70"><rect x="21" y="2" width="6" height="22" rx="2" fill="#3b0a10"/><rect x="15" y="24" width="18" height="40" rx="4" fill="#880E1A"/><rect x="15" y="40" width="18" height="6" fill="#3b0a10"/></symbol>
+ <symbol id="paleta" viewBox="0 0 64 64"><rect x="3" y="10" width="58" height="44" rx="6" fill="#5b1620"/><g><rect x="9" y="16" width="14" height="14" rx="3" fill="#c0505a"/><rect x="25" y="16" width="14" height="14" rx="3" fill="#e2929a"/><rect x="41" y="16" width="14" height="14" rx="3" fill="#8f2a35"/><rect x="9" y="34" width="14" height="14" rx="3" fill="#d9a07a"/><rect x="25" y="34" width="14" height="14" rx="3" fill="#a3434d"/><rect x="41" y="34" width="14" height="14" rx="3" fill="#f0c3b5"/></g></symbol>
+ <symbol id="creme" viewBox="0 0 64 64"><rect x="10" y="26" width="44" height="28" rx="6" fill="#f3d3d6"/><rect x="8" y="14" width="48" height="14" rx="5" fill="#880E1A"/></symbol>
+<symbol id="po" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27" fill="#3b0a10"/><circle cx="32" cy="32" r="20" fill="#e9a3a6"/><circle cx="26" cy="26" r="6" fill="#fff" opacity=".35"/></symbol><symbol id="caneta" viewBox="0 0 48 70"><rect x="21" y="4" width="6" height="48" rx="3" fill="#3b0a10"/><path d="M21 52h6l-3 13z" fill="#880E1A"/></symbol></svg>
+
+<header>
+ <div class="wrap topo">
+  <a class="logo" href="index.html" aria-label="Dellas Make-up, página inicial">
+   <svg width="38" height="38"><use href="#cereja"/></svg>
+   <span><b>dellas</b><small>MAKE-UP</small></span>
+  </a>
+  <form class="busca" role="search" action="produtos.html" method="get">
+   <input type="search" name="q" placeholder="O que você procura?" aria-label="Buscar produtos">
+   <button type="submit" aria-label="Buscar"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
+  </form>
+  <div class="acoes">
+   <a href="conta.html" aria-label="Minha conta"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></a>
+   <a href="favoritos.html" aria-label="Favoritos"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg><span class="badge" id="nFav" hidden>0</span></a>
+   <a href="carrinho.html" aria-label="Carrinho"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.6 12.2a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 2-1.5L21.5 8H6"/></svg><span class="badge" id="nCarrinho" hidden>0</span></a>
+  </div>
+ </div>
+ <nav aria-label="Categorias"><div class="wrap"><ul>
+  <li><a href="index.html">Início</a></li><li><a href="produtos.html">Maquiagens</a></li><li><a href="produtos.html?cat=skincare">Skincare</a></li><li><a href="produtos.html?cat=bodysplash">Body Splash</a></li><li><a href="produtos.html?cat=esponjas">Kits</a></li><li><a href="produtos.html?cat=lancamentos">Lançamentos</a></li>
+ </ul></div></nav>
+</header>
+
+<main class="conta-pagina">
+ <div class="conta-lado">
+  <div class="conta-texto">
+   <h2>Seja bem-vinda à Dellas Make-up!</h2>
+   <p>Entre para guardar seus produtos favoritos, avaliar e fazer pedidos com os seus dados já preenchidos.</p>
+   <ul>
+    <li><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg><span><b>Favoritos</b>guarde o que você amou</span></li>
+    <li><svg class="i" viewBox="0 0 24 24"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg><span><b>Avaliações</b>conte o que achou dos produtos</span></li>
+    <li><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.6 12.2a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 2-1.5L21.5 8H6"/></svg><span><b>Pedido rápido</b>seus dados já preenchidos</span></li>
+   </ul>
+  </div>
+  <img src="foto-hero.webp" alt="">
+ </div>
+ <div class="conta-dir"><div class="conta-cartao" id="conteudo"></div></div>
+</main>
+<script src="config.js?v=12"></script>
+<script src="catalogo.js?v=12"></script>
+<script src="produtos.js?v=12"></script>
+<script src="loja.js?v=12"></script>
+<script>
+const voltar=new URLSearchParams(location.search).get("voltar");
+const destino=/^[a-z]+\.html(\?[A-Za-z0-9=&_-]*)?$/.test(voltar||"")?voltar:null;
+const cereja='<svg class="cereja-v" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 4c-3 8-6 14-8 20M20 4c1 6 4 12 8 18" fill="none" stroke="#880E1A" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="29" r="7.5" fill="#880E1A"/><circle cx="28" cy="27" r="7.5" fill="#880E1A"/></svg>';
+function formulario(d){const novo=!d.nome;
+ $("conteudo").innerHTML=`${cereja}<h1>${novo?"Criar sua conta":"Editar seus dados"}</h1><p class="sub">Preencha os dados abaixo${novo?" para se cadastrar":""}.</p><form id="f" class="form"><label>Nome completo *<input name="nome" required maxlength="60" autocomplete="name" placeholder="Digite seu nome completo" value="${esc(d.nome||"")}"></label><label>WhatsApp (com DDD) *<input name="whats" required inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000" value="${esc(d.whats||"")}"></label><label>Cidade *<select name="cidade" required><option value="">Escolha sua cidade</option>${LOJA.cidades.map(x=>`<option${x===d.cidade?" selected":""}>${esc(x)}</option>`).join("")}</select></label><p class="erro" id="erro" role="alert"></p><button class="btn" type="submit">${novo?"Cadastrar e entrar":"Salvar"}</button><p class="nota-texto">Não precisa de senha: seus dados ficam salvos neste aparelho para agilizar pedidos e avaliações.</p></form>`;
+ $("f").addEventListener("submit",e=>{e.preventDefault();const f=e.target,w=f.whats.value.replace(/\D/g,"");
+  if(w.length<10||w.length>13){$("erro").textContent="Digite o WhatsApp com DDD. Ex.: (86) 99999-9999";return;}
+  conta.salvar({uid:d.uid||(crypto.randomUUID?crypto.randomUUID():String(Date.now())),nome:f.nome.value.trim(),whats:f.whats.value.trim(),cidade:f.cidade.value,endereco:d.endereco});
+  if(destino)location.href=destino;else perfil();});
+}
+function perfil(){const c=conta.ler();
+ $("conteudo").innerHTML=`${cereja}<h1>Olá, ${esc(c.nome.split(" ")[0])}!</h1><p class="sub">Seus dados neste aparelho.</p><dl class="dados"><dt>Nome</dt><dd>${esc(c.nome)}</dd><dt>WhatsApp</dt><dd>${esc(c.whats)}</dd><dt>Cidade</dt><dd>${esc(c.cidade)}</dd></dl><p class="botoes"><a class="btn" href="pedidos.html">Meus pedidos</a><a class="btn vazado" href="favoritos.html">Favoritos</a><a class="btn vazado" href="carrinho.html">Carrinho</a></p><p><button type="button" class="rem" id="editar">Editar dados</button> · <button type="button" class="rem" id="sair">Sair</button></p>`;
+ $("editar").onclick=()=>formulario(c);$("sair").onclick=()=>{conta.sair();formulario({});};}
+conta.ler()?perfil():formulario({});
+</script>
+
+<footer>
+ <div class="wrap">
+  <div class="rod">
+   <div>
+    <a class="logo" href="index.html"><svg width="38" height="38"><use href="#cereja"/></svg><span><b>dellas</b><small>MAKE-UP</small></span></a>
+    <p>Beleza em cada detalhe. Pagamento em dinheiro ou Pix. Entrega no Piauí.</p>
+   </div>
+   <div><h4>Institucional</h4><ul><li><a href="sobre.html">Sobre nós</a></li><li><a href="#">Política de privacidade</a></li><li><a href="#">Termos de uso</a></li></ul></div>
+   <div><h4>Ajuda</h4><ul><li><a href="#">Dúvidas frequentes</a></li><li><a href="pedidos.html">Meus pedidos</a></li><li><a href="https://wa.me/5511978373595?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Dellas%20Make-up." target="_blank" rel="noopener">Fale conosco</a></li></ul></div>
+   <div><h4>Redes sociais</h4><ul><li><a href="https://www.instagram.com/dellasmakeup10_" target="_blank" rel="noopener">Instagram @dellasmakeup10_</a></li><li><a href="#">TikTok</a></li><li><a href="https://wa.me/5511978373595?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Dellas%20Make-up." target="_blank" rel="noopener">WhatsApp</a></li></ul></div>
+  </div>
+  <p class="copy">© 2026 Dellas Make-up. Todos os direitos reservados.</p>
+ </div>
+</footer>
+
+</body>
+</html>

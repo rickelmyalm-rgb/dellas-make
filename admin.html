@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Painel da loja | Dellas Make-up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=13">
+<style>
+body.admin{background:var(--rosa);min-height:100vh}
+.adm-topo{background:var(--vinho);color:var(--branco);padding:14px 0}
+.adm-topo .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.adm-topo b{font:600 26px var(--serif);letter-spacing:.03em}
+.adm-topo small{opacity:.85;margin-left:10px;font-size:13px}
+.adm{padding-top:24px;padding-bottom:70px}
+.adm-card{background:var(--branco);border-radius:16px;padding:26px;max-width:520px;margin:24px auto;box-shadow:0 10px 40px rgba(136,14,26,.10)}
+.adm-card h1{font:500 34px/1.1 var(--serif);color:var(--vinho);margin-bottom:8px}
+.adm label{display:grid;gap:6px;font-size:14px}
+.adm input,.adm select,.adm textarea{font:400 15px var(--sans);padding:10px 12px;border:1px solid var(--rosa2);border-radius:10px;background:var(--branco);color:var(--texto);width:100%}
+.adm input[type=checkbox]{width:auto;accent-color:var(--vinho)}
+.adm input[type=color]{padding:2px;height:40px}
+.adm label.chk{display:flex;gap:8px;align-items:center}
+.chks{display:flex;gap:18px;flex-wrap:wrap}
+.adm-barra{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.adm-barra input,.adm-barra select{width:auto;flex:1;min-width:170px}
+.adm-lista{display:grid;gap:10px;margin-top:10px}
+.adm-linha{display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center;background:var(--branco);border-radius:12px;padding:10px 14px}
+.adm-linha img{width:56px;height:70px;object-fit:cover;border-radius:8px;display:block}
+.adm-linha small{color:var(--suave);display:block}
+.sel{display:inline-block;background:var(--rosa);color:var(--vinho);border-radius:999px;padding:2px 10px;font-size:11px;font-weight:600;margin-left:6px}
+.adm-modal{position:fixed;inset:0;background:rgba(43,26,28,.55);overflow:auto;padding:20px;z-index:60}
+.adm-form{background:var(--branco);border-radius:16px;max-width:760px;margin:0 auto;padding:24px;display:grid;gap:16px}
+.adm-form h2{font:500 30px/1.1 var(--serif);color:var(--vinho)}
+.adm-grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fotos-adm{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0}
+.foto-adm{width:96px}
+.foto-adm img{width:96px;height:120px;object-fit:cover;border-radius:10px;display:block;background:var(--rosa)}
+.foto-adm .acoes{display:flex;justify-content:space-between;margin-top:4px}
+.foto-adm button{border:0;background:var(--rosa);color:var(--vinho);border-radius:6px;width:28px;height:26px;cursor:pointer}
+.foto-adm .capa{font-size:11px;color:var(--vinho);font-weight:600}
+.tom-adm{display:grid;grid-template-columns:100px 52px 1fr auto;gap:8px;align-items:center;margin:8px 0}
+.adm-msg{padding:10px 14px;border-radius:10px;font-size:14px;margin-bottom:10px}
+.adm-msg.ok{background:#e8f6ec;color:#17603a}
+.adm-msg.erro{background:#fdecee;color:#9b1c2c}
+.adm-msg.info{background:var(--rosa2);color:var(--vinho)}
+@media(max-width:600px){.adm-grid2{grid-template-columns:1fr}.tom-adm{grid-template-columns:76px 44px 1fr auto}.adm-linha{grid-template-columns:48px 1fr}.adm-linha button{grid-column:1/-1}}
+</style>
+</head>
+<body class="admin">
+<header class="adm-topo"><div class="wrap">
+ <div><b>dellas</b><small>Painel da loja</small></div>
+ <div><a class="rem" style="color:#fff" href="index.html">Ver o site</a> <button type="button" class="rem" style="color:#fff;margin-left:14px" id="trocarChave" hidden>Trocar chave do GitHub</button> <button type="button" class="rem" style="color:#fff;margin-left:14px" id="sair" hidden>Sair</button></div>
+</div></header>
+
+<main class="wrap adm">
+ <section id="login" class="adm-card">
+  <h1>Painel da loja</h1>
+  <p class="nota-texto" style="margin-bottom:16px">Área só para a dona da loja. Aqui você cadastra produtos, preços e fotos sem mexer no código.</p>
+  <form id="fLogin" class="form">
+   <label>Login<input id="lUser" autocomplete="username" autocapitalize="none" required></label>
+   <label>Senha<input id="lSenha" type="password" autocomplete="current-password" required></label>
+   <p class="erro" id="lErro" role="alert"></p>
+   <button class="btn" type="submit" id="lEntrar" style="cursor:pointer;font-family:var(--sans)">Entrar</button>
+  </form>
+ </section>
+
+ <section id="setup" class="adm-card" hidden>
+  <h1>Chave do GitHub</h1>
+  <p class="nota-texto" style="margin-bottom:16px">O painel precisa de uma chave do GitHub para publicar as mudanças. Ela fica guardada no seu Firebase, protegida pelo seu login, e você só cola uma vez.</p>
+  <form id="fSetup" class="form">
+   <label>Repositório do site no GitHub<input id="sRepo" placeholder="usuario/nome-do-repositorio" required></label>
+   <label>Chave (token) do GitHub<input id="sToken" type="password" autocomplete="off" required></label>
+   <p class="erro" id="sErro" role="alert"></p>
+   <button class="btn" type="submit" id="sSalvar" style="cursor:pointer;font-family:var(--sans)">Guardar e entrar</button>
+  </form>
+ </section>
+
+ <section id="painel" hidden>
+  <div id="msgGeral" class="adm-msg" hidden></div>
+  <div class="adm-barra">
+   <input id="busca" type="search" placeholder="Buscar produto...">
+   <select id="filtroCat"><option value="">Todas as categorias</option></select>
+   <button class="btn" id="novo" type="button" style="cursor:pointer;font-family:var(--sans)">+ Novo produto</button>
+  </div>
+  <p class="nota-texto" id="resumo"></p>
+  <div id="lista" class="adm-lista"></div>
+ </section>
+</main>
+
+<div id="modal" class="adm-modal adm" hidden>
+ <form id="fProd" class="adm-form">
+  <h2 id="mTitulo">Produto</h2>
+  <label>Nome<input id="pNome" required maxlength="90"></label>
+  <div class="adm-grid2">
+   <label>Categoria<select id="pCat" required></select></label>
+   <label>Preço (R$)<input id="pPreco" type="number" min="0" step="0.01" placeholder="vazio = Consulte o preço"></label>
+  </div>
+  <label>Descrição<textarea id="pDesc" rows="3" maxlength="600"></textarea></label>
+  <div class="chks">
+   <label class="chk"><input type="checkbox" id="pLanc"> Lançamento</label>
+   <label class="chk"><input type="checkbox" id="pEsg"> Esgotado</label>
+   <label class="chk"><input type="checkbox" id="pOculto"> Ocultar do site</label>
+  </div>
+  <div>
+   <b>Fotos</b> <small class="nota-texto">A primeira foto é a capa do produto.</small>
+   <div id="pFotos" class="fotos-adm"></div>
+   <input id="pArq" type="file" accept="image/*" multiple>
+  </div>
+  <div>
+   <b>Tons / cores</b> <small class="nota-texto">Opcional. Escolha a foto que aparece ao selecionar o tom.</small>
+   <div id="pTons"></div>
+   <button class="btn vazado" type="button" id="addTom" style="cursor:pointer;font-family:var(--sans)">+ Adicionar tom</button>
+  </div>
+  <div id="mMsg" class="adm-msg" hidden></div>
+  <div class="botoes">
+   <button class="btn" type="submit" id="salvar" style="cursor:pointer;font-family:var(--sans)">Salvar e publicar</button>
+   <button class="btn vazado" type="button" id="cancelar" style="cursor:pointer;font-family:var(--sans)">Cancelar</button>
+  </div>
+ </form>
+</div>
+
+<script src="config.js?v=13"></script>
+<script src="catalogo.js?v=13"></script>
+<script src="produtos.js?v=13"></script>
+<script src="loja.js?v=13"></script>
+<script src="admin.js?v=13"></script>
+</body>
+</html>

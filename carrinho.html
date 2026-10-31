@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carrinho | Dellas Make-up</title>
+<meta name="description" content="Batons, bases, corretivos, paletas e mais. Compre na Dellas Make-up e pague em dinheiro ou Pix.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=12">
+</head>
+<body>
+
+<!-- Ícones reutilizáveis -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <symbol id="cereja" viewBox="0 0 40 40"><path d="M20 4c-3 8-6 14-8 20M20 4c1 6 4 12 8 18" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="29" r="7.5" fill="#fff"/><circle cx="28" cy="27" r="7.5" fill="#fff"/></symbol>
+ <symbol id="batom" viewBox="0 0 48 70"><path d="M17 38V20q0-9 7-14q7 5 7 14v18z" fill="#880E1A"/><rect x="14" y="38" width="20" height="26" rx="2" fill="#3b0a10"/><rect x="14" y="38" width="20" height="4" fill="#c9a24a"/></symbol>
+ <symbol id="base" viewBox="0 0 48 70"><rect x="18" y="4" width="12" height="14" rx="2" fill="#3b0a10"/><rect x="12" y="18" width="24" height="46" rx="6" fill="#e3b08e"/><rect x="16" y="30" width="16" height="14" rx="2" fill="#fff" opacity=".55"/></symbol>
+ <symbol id="rimel" viewBox="0 0 48 70"><rect x="21" y="2" width="6" height="22" rx="2" fill="#3b0a10"/><rect x="15" y="24" width="18" height="40" rx="4" fill="#880E1A"/><rect x="15" y="40" width="18" height="6" fill="#3b0a10"/></symbol>
+ <symbol id="paleta" viewBox="0 0 64 64"><rect x="3" y="10" width="58" height="44" rx="6" fill="#5b1620"/><g><rect x="9" y="16" width="14" height="14" rx="3" fill="#c0505a"/><rect x="25" y="16" width="14" height="14" rx="3" fill="#e2929a"/><rect x="41" y="16" width="14" height="14" rx="3" fill="#8f2a35"/><rect x="9" y="34" width="14" height="14" rx="3" fill="#d9a07a"/><rect x="25" y="34" width="14" height="14" rx="3" fill="#a3434d"/><rect x="41" y="34" width="14" height="14" rx="3" fill="#f0c3b5"/></g></symbol>
+ <symbol id="creme" viewBox="0 0 64 64"><rect x="10" y="26" width="44" height="28" rx="6" fill="#f3d3d6"/><rect x="8" y="14" width="48" height="14" rx="5" fill="#880E1A"/></symbol>
+<symbol id="po" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27" fill="#3b0a10"/><circle cx="32" cy="32" r="20" fill="#e9a3a6"/><circle cx="26" cy="26" r="6" fill="#fff" opacity=".35"/></symbol><symbol id="caneta" viewBox="0 0 48 70"><rect x="21" y="4" width="6" height="48" rx="3" fill="#3b0a10"/><path d="M21 52h6l-3 13z" fill="#880E1A"/></symbol></svg>
+
+<header>
+ <div class="wrap topo">
+  <a class="logo" href="index.html" aria-label="Dellas Make-up, página inicial">
+   <svg width="38" height="38"><use href="#cereja"/></svg>
+   <span><b>dellas</b><small>MAKE-UP</small></span>
+  </a>
+  <form class="busca" role="search" action="produtos.html" method="get">
+   <input type="search" name="q" placeholder="O que você procura?" aria-label="Buscar produtos">
+   <button type="submit" aria-label="Buscar"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
+  </form>
+  <div class="acoes">
+   <a href="conta.html" aria-label="Minha conta"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></a>
+   <a href="favoritos.html" aria-label="Favoritos"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg><span class="badge" id="nFav" hidden>0</span></a>
+   <a href="carrinho.html" aria-label="Carrinho"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.6 12.2a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 2-1.5L21.5 8H6"/></svg><span class="badge" id="nCarrinho" hidden>0</span></a>
+  </div>
+ </div>
+ <nav aria-label="Categorias"><div class="wrap"><ul>
+  <li><a href="index.html">Início</a></li><li><a href="produtos.html">Maquiagens</a></li><li><a href="produtos.html?cat=skincare">Skincare</a></li><li><a href="produtos.html?cat=bodysplash">Body Splash</a></li><li><a href="produtos.html?cat=esponjas">Kits</a></li><li><a href="produtos.html?cat=lancamentos">Lançamentos</a></li>
+ </ul></div></nav>
+</header>
+
+<main class="wrap pagina">
+ <h1 class="titulo">Carrinho</h1>
+ <p class="vazio" id="vazio" hidden>Seu carrinho está vazio. <a href="produtos.html"><u>Ver produtos</u></a></p>
+ <div class="carrinho" id="cheio">
+  <div id="itens"></div>
+  <aside class="caixa">
+   <h2>Resumo do pedido</h2>
+   <div class="linha"><span>Subtotal</span><span id="sub"></span></div>
+   <div class="linha total"><span>Total</span><span id="total"></span></div>
+   <form id="pedido" class="form">
+    <label>Nome<input name="nome" required maxlength="60" autocomplete="name"></label>
+    <label>WhatsApp (com DDD)<input name="whats" required inputmode="tel" autocomplete="tel" placeholder="86 99999-9999"></label>
+    <div class="radios" role="radiogroup" aria-label="Como você quer receber"><b>Como você quer receber?</b>
+     <label><input type="radio" name="receber" value="Retirada" required> Retirada</label>
+     <label><input type="radio" name="receber" value="Entrega"> Entrega</label></div>
+    <fieldset id="blocoEntrega" hidden disabled>
+     <label>Cidade<select name="cidade" required><option value="">Escolha sua cidade</option></select></label>
+     <label>Rua<input type="text" name="rua" required maxlength="80" autocomplete="street-address" placeholder="Nome da rua"></label>
+     <label>Bairro<input type="text" name="bairro" required maxlength="60" placeholder="Seu bairro"></label>
+     <label>Número<input type="text" name="numero" required maxlength="10" placeholder="Ex.: 123 ou s/n"></label>
+    </fieldset>
+    <div class="radios" role="radiogroup" aria-label="Forma de pagamento"><b>Pagamento</b>
+     <label><input type="radio" name="pag" value="Dinheiro" checked> Dinheiro</label>
+     <label><input type="radio" name="pag" value="Pix"> Pix</label></div>
+    <label>Observações (opcional)<textarea name="obs" rows="2" maxlength="300"></textarea></label>
+    <p class="erro" id="erro" role="alert"></p>
+    <button class="btn" type="submit">Enviar pedido pelo WhatsApp</button>
+    <p class="nota-texto">O pedido abre no seu WhatsApp e o pagamento é combinado por lá.</p>
+   </form>
+   <button type="button" class="rem" id="limpar">Esvaziar carrinho</button>
+  </aside>
+ </div>
+</main>
+<script src="config.js?v=12"></script>
+<script src="catalogo.js?v=12"></script>
+<script src="produtos.js?v=12"></script>
+<script src="loja.js?v=12"></script>
+<script>
+const lista=()=>carrinho.itens().filter(i=>visivel(i.id));
+const somar=l=>l.reduce((s,i)=>s+(P[i.id].preco??0)*i.qtd,0);
+const f=$("pedido");
+f.cidade.insertAdjacentHTML("beforeend",LOJA.cidades.map(x=>`<option>${esc(x)}</option>`).join(""));
+const c=conta.ler();if(c){f.nome.value=c.nome;f.whats.value=c.whats;f.cidade.value=c.cidade;
+ if(c.endereco){const e=c.endereco;if(e.cidade)f.cidade.value=e.cidade;f.rua.value=e.rua||"";f.bairro.value=e.bairro||"";f.numero.value=e.numero||"";}}
+else $("limpar").insertAdjacentHTML("beforebegin",'<p class="nota-texto"><a href="conta.html?voltar=carrinho.html"><u>Entre na sua conta</u> para preencher seus dados automaticamente e guardar o histórico dos seus pedidos.</a></p>');
+f.addEventListener("change",e=>{if(e.target.name!=="receber")return;const ent=f.receber.value==="Entrega";$("blocoEntrega").hidden=!ent;$("blocoEntrega").disabled=!ent;});
+function desenhar(){
+ const l=lista();$("vazio").hidden=l.length>0;$("cheio").hidden=!l.length;if(!l.length)return;
+ $("itens").innerHTML=l.map((it,k)=>{const p=P[it.id];
+  return `<div class="item"><a href="produto.html?id=${it.id}"><img src="${p.imgs[0]}" alt="${esc(p.nome)}"></a><div><h3><a href="produto.html?id=${it.id}">${esc(p.nome)}</a></h3>${it.tom?`<small>Tom: ${esc(it.tom)}</small>`:""}<div class="qtd"><button type="button" data-k="${k}" data-d="-1" aria-label="Diminuir quantidade">−</button><span>${it.qtd}</span><button type="button" data-k="${k}" data-d="1" aria-label="Aumentar quantidade">+</button></div></div><div class="dir"><b>${brl((p.preco??0)*it.qtd)}</b><br><button type="button" class="rem" data-k="${k}" data-rem>Remover</button></div></div>`;}).join("");
+ $("sub").textContent=$("total").textContent=brl(somar(l));
+}
+$("itens").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+ const l=lista(),k=+b.dataset.k;
+ if(b.hasAttribute("data-rem"))l.splice(k,1);else l[k].qtd=Math.min(20,Math.max(1,l[k].qtd+ +b.dataset.d));
+ carrinho.salvar(l);desenhar();});
+$("limpar").onclick=()=>{carrinho.salvar([]);desenhar();};
+f.addEventListener("submit",e=>{e.preventDefault();const l=lista();if(!l.length)return;
+ if(!LOJA.whatsapp){$("erro").textContent="O número de WhatsApp da loja ainda não foi configurado (arquivo produtos.js).";return;}
+ $("erro").textContent="";
+ const linhas=l.map(i=>{const p=P[i.id];return `• ${i.qtd}x ${p.nome}${i.tom?` (tom ${i.tom})`:""} - ${brl((p.preco??0)*i.qtd)}`;}).join("\n");
+ const ent=f.receber.value==="Entrega";
+ const receb=ent?`Entrega\n*Endereço:* ${f.rua.value.trim()}, nº ${f.numero.value.trim()}, ${f.bairro.value.trim()} - ${f.cidade.value}`:"Retirada";
+ const msg=`Olá! Quero fazer um pedido na Dellas Make-up:\n\n${linhas}\n\n*Total:* ${brl(somar(l))}\n*Nome:* ${f.nome.value.trim()}\n*WhatsApp:* ${f.whats.value.trim()}\n*Recebimento:* ${receb}\n*Pagamento:* ${f.pag.value}${f.obs.value.trim()?`\n*Obs.:* ${f.obs.value.trim()}`:""}`;
+ if(ent&&c)conta.salvar({...c,endereco:{cidade:f.cidade.value,rua:f.rua.value.trim(),bairro:f.bairro.value.trim(),numero:f.numero.value.trim()}});
+ pedidos.adicionar({id:Date.now(),data:new Date().toISOString(),uid:uidAtual(),itens:l.map(i=>({id:i.id,nome:P[i.id].nome,tom:i.tom,qtd:i.qtd,preco:P[i.id].preco??0})),total:somar(l),receber:ent?"Entrega":"Retirada",endereco:ent?`${f.rua.value.trim()}, nº ${f.numero.value.trim()}, ${f.bairro.value.trim()} - ${f.cidade.value}`:"",pagamento:f.pag.value});
+ window.open("https://wa.me/"+LOJA.whatsapp.replace(/\D/g,"")+"?text="+encodeURIComponent(msg),"_blank","noopener");
+ carrinho.salvar([]);setTimeout(()=>{location.href="pedidos.html?enviado=1";},400);});
+desenhar();
+</script>
+
+<footer>
+ <div class="wrap">
+  <div class="rod">
+   <div>
+    <a class="logo" href="index.html"><svg width="38" height="38"><use href="#cereja"/></svg><span><b>dellas</b><small>MAKE-UP</small></span></a>
+    <p>Beleza em cada detalhe. Pagamento em dinheiro ou Pix. Entrega no Piauí.</p>
+   </div>
+   <div><h4>Institucional</h4><ul><li><a href="sobre.html">Sobre nós</a></li><li><a href="#">Política de privacidade</a></li><li><a href="#">Termos de uso</a></li></ul></div>
+   <div><h4>Ajuda</h4><ul><li><a href="#">Dúvidas frequentes</a></li><li><a href="pedidos.html">Meus pedidos</a></li><li><a href="https://wa.me/5511978373595?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Dellas%20Make-up." target="_blank" rel="noopener">Fale conosco</a></li></ul></div>
+   <div><h4>Redes sociais</h4><ul><li><a href="https://www.instagram.com/dellasmakeup10_" target="_blank" rel="noopener">Instagram @dellasmakeup10_</a></li><li><a href="#">TikTok</a></li><li><a href="https://wa.me/5511978373595?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Dellas%20Make-up." target="_blank" rel="noopener">WhatsApp</a></li></ul></div>
+  </div>
+  <p class="copy">© 2026 Dellas Make-up. Todos os direitos reservados.</p>
+ </div>
+</footer>
+
+</body>
+</html>

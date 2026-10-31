@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Produto | Dellas Make-up</title>
+<meta name="description" content="Batons, bases, corretivos, paletas e mais. Compre na Dellas Make-up e pague em dinheiro ou Pix.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=12">
+</head>
+<body>
+
+<!-- Ícones reutilizáveis -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <symbol id="cereja" viewBox="0 0 40 40"><path d="M20 4c-3 8-6 14-8 20M20 4c1 6 4 12 8 18" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="29" r="7.5" fill="#fff"/><circle cx="28" cy="27" r="7.5" fill="#fff"/></symbol>
+ <symbol id="batom" viewBox="0 0 48 70"><path d="M17 38V20q0-9 7-14q7 5 7 14v18z" fill="#880E1A"/><rect x="14" y="38" width="20" height="26" rx="2" fill="#3b0a10"/><rect x="14" y="38" width="20" height="4" fill="#c9a24a"/></symbol>
+ <symbol id="base" viewBox="0 0 48 70"><rect x="18" y="4" width="12" height="14" rx="2" fill="#3b0a10"/><rect x="12" y="18" width="24" height="46" rx="6" fill="#e3b08e"/><rect x="16" y="30" width="16" height="14" rx="2" fill="#fff" opacity=".55"/></symbol>
+ <symbol id="rimel" viewBox="0 0 48 70"><rect x="21" y="2" width="6" height="22" rx="2" fill="#3b0a10"/><rect x="15" y="24" width="18" height="40" rx="4" fill="#880E1A"/><rect x="15" y="40" width="18" height="6" fill="#3b0a10"/></symbol>
+ <symbol id="paleta" viewBox="0 0 64 64"><rect x="3" y="10" width="58" height="44" rx="6" fill="#5b1620"/><g><rect x="9" y="16" width="14" height="14" rx="3" fill="#c0505a"/><rect x="25" y="16" width="14" height="14" rx="3" fill="#e2929a"/><rect x="41" y="16" width="14" height="14" rx="3" fill="#8f2a35"/><rect x="9" y="34" width="14" height="14" rx="3" fill="#d9a07a"/><rect x="25" y="34" width="14" height="14" rx="3" fill="#a3434d"/><rect x="41" y="34" width="14" height="14" rx="3" fill="#f0c3b5"/></g></symbol>
+ <symbol id="creme" viewBox="0 0 64 64"><rect x="10" y="26" width="44" height="28" rx="6" fill="#f3d3d6"/><rect x="8" y="14" width="48" height="14" rx="5" fill="#880E1A"/></symbol>
+<symbol id="po" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27" fill="#3b0a10"/><circle cx="32" cy="32" r="20" fill="#e9a3a6"/><circle cx="26" cy="26" r="6" fill="#fff" opacity=".35"/></symbol><symbol id="caneta" viewBox="0 0 48 70"><rect x="21" y="4" width="6" height="48" rx="3" fill="#3b0a10"/><path d="M21 52h6l-3 13z" fill="#880E1A"/></symbol></svg>
+
+<header>
+ <div class="wrap topo">
+  <a class="logo" href="index.html" aria-label="Dellas Make-up, página inicial">
+   <svg width="38" height="38"><use href="#cereja"/></svg>
+   <span><b>dellas</b><small>MAKE-UP</small></span>
+  </a>
+  <form class="busca" role="search" action="produtos.html" method="get">
+   <input type="search" name="q" placeholder="O que você procura?" aria-label="Buscar produtos">
+   <button type="submit" aria-label="Buscar"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
+  </form>
+  <div class="acoes">
+   <a href="conta.html" aria-label="Minha conta"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></a>
+   <a href="favoritos.html" aria-label="Favoritos"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg><span class="badge" id="nFav" hidden>0</span></a>
+   <a href="carrinho.html" aria-label="Carrinho"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.6 12.2a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 2-1.5L21.5 8H6"/></svg><span class="badge" id="nCarrinho" hidden>0</span></a>
+  </div>
+ </div>
+ <nav aria-label="Categorias"><div class="wrap"><ul>
+  <li><a href="index.html">Início</a></li><li><a href="produtos.html" aria-current="page">Maquiagens</a></li><li><a href="produtos.html?cat=skincare">Skincare</a></li><li><a href="produtos.html?cat=bodysplash">Body Splash</a></li><li><a href="produtos.html?cat=esponjas">Kits</a></li><li><a href="produtos.html?cat=lancamentos">Lançamentos</a></li>
+ </ul></div></nav>
+</header>
+
+<main class="wrap" id="conteudo">
+ <p class="migalha"><a href="index.html">Início</a><span>›</span><a href="produtos.html">Maquiagens</a><span>›</span><b id="crumb"></b></p>
+ <div class="produto">
+  <div class="galeria">
+   <div class="principal" id="palco">
+    <button type="button" class="fav" id="favBtn" aria-pressed="false" aria-label="Favoritar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg></button>
+    <img id="foto" alt="">
+    <button type="button" class="seta ant" id="ant" aria-label="Foto anterior">‹</button>
+    <button type="button" class="seta prox" id="prox" aria-label="Próxima foto">›</button>
+   </div>
+   <div class="mini" id="mini"></div>
+  </div>
+  <div class="info">
+   <h1 id="pNome"></h1>
+   <span class="preco" id="pPreco"></span>
+   <span class="pix" id="pPix">à vista (Pix ou dinheiro)</span>
+   <p class="resumo" id="pDesc"></p>
+   <p class="rotulo" id="rotulo">Tom: <b id="tomNome"></b></p>
+   <div class="tons" id="tons"></div>
+   <div class="compra">
+    <div class="qtd"><button type="button" id="menos" aria-label="Diminuir quantidade">−</button><span id="qtd" aria-live="polite">1</span><button type="button" id="mais" aria-label="Aumentar quantidade">+</button></div>
+    <button type="button" class="btn" id="add">Adicionar ao carrinho</button>
+   </div>
+   <button type="button" class="btn vazado comprar" id="comprar">Comprar agora</button>
+   <!-- Textos de exemplo: troque pelas informações reais de cada produto -->
+   <details open><summary>Descrição</summary><p id="pDesc2"></p></details>
+   <details><summary>Modo de uso</summary><p>Aplique seguindo a orientação do fabricante, que está na embalagem.</p></details>
+   <details><summary>Ingredientes</summary><p>Veja a lista completa de ingredientes na embalagem do produto.</p></details>
+  </div>
+ </div>
+ <section id="avaliacoes">
+  <h2>Avaliações</h2>
+  <p class="media" id="media"></p>
+  <div id="areaForm"></div>
+  <div id="listaAval"></div>
+ </section>
+ <div style="padding-top:44px"><h2>Você também pode gostar</h2><div class="grade" id="similares"></div></div>
+</main>
+<script src="config.js?v=12"></script>
+<script src="catalogo.js?v=12"></script>
+<script src="produtos.js?v=12"></script>
+<script src="loja.js?v=12"></script>
+<script>
+const id=+new URLSearchParams(location.search).get("id"),p=P[id];
+if(!p||p.oculto){
+ $("conteudo").innerHTML='<p class="vazio" style="padding:60px 0">Produto não encontrado. <a href="produtos.html"><u>Ver todos os produtos</u></a></p>';
+}else{
+ document.title=p.nome+" | Dellas Make-up";
+ $("crumb").textContent=p.nome;$("pNome").textContent=p.nome;
+ $("pPreco").textContent=p.preco!=null?brl(p.preco):"Consulte o preço";$("pPix").hidden=p.preco==null;
+ $("pDesc").textContent=p.desc;$("pDesc2").textContent=p.desc;
+ $("favBtn").dataset.fav=id;$("favBtn").setAttribute("aria-label","Favoritar "+p.nome);
+ const n=p.imgs.length;let cur=0;
+ const tomSel=()=>{const b=document.querySelector(".tom[aria-pressed=true]");return b?b.dataset.n:null;};
+ function marcaTom(t){document.querySelectorAll(".tom").forEach((b,k)=>b.setAttribute("aria-pressed",k===t));$("tomNome").textContent=p.tons[t][0];}
+ function ir(i){cur=(i+n)%n;$("foto").src=p.imgs[cur];$("foto").alt=p.nome+", foto "+(cur+1);
+  document.querySelectorAll(".mini button").forEach((b,k)=>b.setAttribute("aria-current",k===cur));
+  if(p.tons){const t=p.tons.findIndex(x=>x[2]===cur);if(t>=0)marcaTom(t);}}
+ if(n>1){$("mini").innerHTML=p.imgs.map((s,k)=>`<button type="button" aria-label="Ver foto ${k+1}"><img src="${s}" alt=""></button>`).join("");
+  $("mini").addEventListener("click",e=>{const b=e.target.closest("button");if(b)ir([...$("mini").children].indexOf(b));});
+  $("ant").onclick=()=>ir(cur-1);$("prox").onclick=()=>ir(cur+1);
+  let x0=null;$("palco").addEventListener("touchstart",e=>x0=e.touches[0].clientX,{passive:true});
+  $("palco").addEventListener("touchend",e=>{if(x0===null)return;const d=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(d)>40)ir(cur+(d<0?1:-1));});
+ }else{$("ant").hidden=true;$("prox").hidden=true;$("mini").hidden=true;}
+ if(p.tons){$("tons").innerHTML=p.tons.map(t=>`<button type="button" class="tom" data-n="${esc(t[0])}" style="background:${t[1]}" aria-label="Tom ${esc(t[0])}" aria-pressed="false"></button>`).join("");
+  marcaTom(0);
+  $("tons").addEventListener("click",e=>{const b=e.target.closest(".tom");if(!b)return;const t=[...$("tons").children].indexOf(b);marcaTom(t);if(typeof p.tons[t][2]==="number")ir(p.tons[t][2]);});
+ }else{$("rotulo").hidden=true;$("tons").hidden=true;}
+ ir(0);
+ let q=1;const mostra=()=>$("qtd").textContent=q;
+ $("menos").onclick=()=>{q=Math.max(1,q-1);mostra();};$("mais").onclick=()=>{q=Math.min(20,q+1);mostra();};
+ $("add").onclick=()=>{carrinho.add(id,tomSel(),q);aviso('Adicionado ao carrinho <a href="carrinho.html">Ver carrinho</a>');
+  $("add").textContent="Adicionado";setTimeout(()=>$("add").textContent="Adicionar ao carrinho",1800);};
+ $("comprar").onclick=()=>{carrinho.add(id,tomSel(),q);location.href="carrinho.html";};
+ if(p.esgotado){$("add").disabled=true;$("add").textContent="Esgotado";$("comprar").hidden=true;$("add").onclick=null;}
+ const sim=[];for(let k=1;k<P.length&&sim.length<4;k++){const j=(id+k)%P.length;if(visivel(j))sim.push(j);}
+ $("similares").innerHTML=sim.map(j=>cartao(j)).join("");
+
+ /* ---- avaliações e comentários ---- */
+ const c=conta.ler();
+ let meu=null;
+ async function mostrarAval(){
+  let l=[];
+  try{l=await avaliacoes.listar(id);meu=await avaliacoes.meuId();}
+  catch(e){console.error(e);$("media").textContent="Não foi possível carregar as avaliações agora.";$("listaAval").innerHTML="";return;}
+  const k=l.length,m=k?l.reduce((s,a)=>s+a.nota,0)/k:0;
+  $("media").innerHTML=k?`<span class="estrelas" aria-hidden="true">${estrelas(Math.round(m))}</span> <b>${m.toFixed(1).replace(".",",")}</b> · ${k} avaliaç${k>1?"ões":"ão"}`:"Ainda não há avaliações. Seja a primeira pessoa a avaliar!";
+  $("listaAval").innerHTML=l.map(a=>`<article class="aval"><div><b>${esc(a.nome)}</b> <span class="estrelas" role="img" aria-label="${a.nota} de 5 estrelas">${estrelas(a.nota)}</span><small>${esc(a.data)}</small></div>${a.texto?`<p>${esc(a.texto)}</p>`:""}${meu&&a.autor===meu?'<button type="button" class="rem" data-del>Excluir minha avaliação</button>':""}</article>`).join("");
+ }
+ if(!c){$("areaForm").innerHTML=`<p>Para avaliar ou comentar, <a href="conta.html?voltar=${encodeURIComponent("produto.html?id="+id)}"><u>entre na sua conta</u></a>.</p>`;}
+ else{
+  $("areaForm").innerHTML=`<form id="fa" class="form"><div class="nota" role="radiogroup" aria-label="Sua nota">${[5,4,3,2,1].map(x=>`<input type="radio" name="nota" id="n${x}" value="${x}" required><label for="n${x}" title="${x} estrela${x>1?"s":""}">★<span class="so-leitor"> ${x} estrela${x>1?"s":""}</span></label>`).join("")}</div><label>Comentário (opcional)<textarea name="texto" rows="3" maxlength="500"></textarea></label><button class="btn" type="submit">Enviar avaliação</button><p class="nota-texto">${avaliacoes.nuvem?"Sua avaliação aparece para todos os clientes.":"Sua avaliação fica salva neste aparelho."}</p></form>`;
+  $("fa").addEventListener("submit",async e=>{e.preventDefault();const f=e.target,bt=f.querySelector("button[type=submit]");bt.disabled=true;
+   try{await avaliacoes.salvar(id,{autor:c.uid,nome:c.nome.split(" ")[0],nota:+f.nota.value,texto:f.texto.value.trim(),data:new Date().toLocaleDateString("pt-BR")});
+    f.reset();aviso("Avaliação enviada");await mostrarAval();}
+   catch(err){console.error(err);aviso("Não foi possível enviar agora. Tente de novo."+(err&&err.code?" ("+err.code+")":""));}
+   bt.disabled=false;});
+ }
+ $("listaAval").addEventListener("click",async e=>{if(!e.target.closest("[data-del]")||!meu)return;
+  try{await avaliacoes.remover(id,meu);await mostrarAval();}catch(err){console.error(err);aviso("Não foi possível excluir agora."+(err&&err.code?" ("+err.code+")":""));}});
+ mostrarAval();
+}
+</script>
+
+<footer>
+ <div class="wrap">
+  <div class="rod">
+   <div>
+    <a class="logo" href="index.html"><svg width="38" height="38"><use href="#cereja"/></svg><span><b>dellas</b><small>MAKE-UP</small></span></a>
+    <p>Beleza em cada detalhe. Pagamento em dinheiro ou Pix. Entrega no Piauí.</p>
+   </div>
+   <div><h4>Institucional</h4><ul><li><a href="sobre.html">Sobre nós</a></li><li><a href="#">Política de privacidade</a></li><li><a href="#">Termos de uso</a></li></ul></div>
+   <div><h4>Ajuda</h4><ul><li><a href="#">Dúvidas frequentes</a></li><li><a href="pedidos.html">Meus pedidos</a></li><li><a href="https://wa.me/5511978373595?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Dellas%20Make-up." target="_blank" rel="noopener">Fale conosco</a></li></ul></div>
+   <div><h4>Redes sociais</h4><ul><li><a href="https://www.instagram.com/dellasmakeup10_" target="_blank" rel="noopener">Instagram @dellasmakeup10_</a></li><li><a href="#">TikTok</a></li><li><a href="https://wa.me/5511978373595?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Dellas%20Make-up." target="_blank" rel="noopener">WhatsApp</a></li></ul></div>
+  </div>
+  <p class="copy">© 2026 Dellas Make-up. Todos os direitos reservados.</p>
+ </div>
+</footer>
+
+</body>
+</html>
