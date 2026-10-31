@@ -46,7 +46,7 @@ const slug=s=>(s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().r
 function msg(id,txt,tipo){const m=el(id);if(!txt){m.hidden=true;return;}m.textContent=txt;m.className="adm-msg "+(tipo||"info");m.hidden=false;}
 
 /* ---------- login (usuário e senha pelo Firebase) ---------- */
-const DOMINIO="@painel.dellas";   // o login "dellasmakeup10" vira o e-mail dellasmakeup10@painel.dellas no Firebase
+const DOMINIO="@painel.dellas.com";   // o login "dellasmakeup10" vira o e-mail dellasmakeup10@painel.dellas.com no Firebase
 let ULTIMO_ERRO="";
 function repoPadrao(){
  const salvo=localStorage.getItem("dellas_gh_repo");if(salvo)return salvo;
