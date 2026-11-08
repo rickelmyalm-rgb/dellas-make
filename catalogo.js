@@ -34,7 +34,7 @@ const P=[
 {"nome":"Body Splash Ocean Vert Lady Beauty","cat":"bodysplash","preco":10,"desc":"Body splash Ocean Vert (130 ml), da Lady Beauty. Cologne deodorant.","imgs":["p-bodysplash-oceanvert.webp"]},
 {"nome":"Cola para Cílios Salon Pro","cat":"cilios","preco":10,"desc":"Cola Super Hair Bond Glue Salon Pro (30 ml), de ação rápida e uso profissional.","imgs":["p-cola-salonpro.webp"]},
 {"nome":"Extensão de Cílios Ruby Anjo Mix 30P","cat":"cilios","preco":10,"desc":"Mix de extensões de cílios DIY, de 8 mm a 14 mm (modelo 30P-MIX).","imgs":["p-extensao-30p.webp"]},
-{"nome":"Extensão de Cílios Ruby Anjo Mix 20P","cat":"cilios","preco":10,"desc":"Mix de extensões de cílios DIY, de 8 mm a 14 mm (modelo 20P-MIX).","imgs":["p-extensao-20p.webp"]},
+{"nome":"Extensão de Cílios Ruby Anjo Mix 20P","cat":"cilios","preco":10,"desc":"Mix de extensões de cílios DIY, de 8 mm a 14 mm (modelo 20P-MIX).","imgs":["p-extensao-20p.webp"],"lancamento":true},
 {"nome":"Lâmina para Sobrancelha","cat":"cilios","preco":10,"desc":"Kit com 6 lâminas para sobrancelha (Eyebrow Razor) com proteção de aço inoxidável, nas cores bege, azul e rosa.","imgs":["p-lamina-sobrancelha.webp"]},
 {"nome":"Sombra para Sobrancelhas Pink21","cat":"cilios","preco":10,"desc":"Paleta de sombras para sobrancelhas com 4 tons, da Pink21 Cosmetics.","imgs":["p-sombra-sobrancelha-1.webp","p-sombra-sobrancelha-2.webp"]},
 {"nome":"Contorno para Lábios Pink21","cat":"labios","preco":10,"desc":"Lápis contorno para lábios Sexy Lips, da Pink21 Cosmetics, em 8 tons.","imgs":["p-contorno-labios-1.webp","p-contorno-labios-2.webp"],"tons":[["01","#ccb28c"],["02","#e67c8f"],["03","#b67f7e"],["04","#a86b65"],["05","#af5565"],["06","#ae676f"],["07","#a6364f"],["08","#d13f45"]]}
