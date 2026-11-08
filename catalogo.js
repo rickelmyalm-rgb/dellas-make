@@ -5,7 +5,7 @@
 // Para tirar um produto do site, use "oculto":true. Produtos novos entram sempre no final.
 const P=[
 {"nome":"Base Love Rain","cat":"base","preco":10,"desc":"Base mate que cobre tudo. Disponível nos tons 01 a 06.","imgs":["p-base.webp"],"tons":[["01","#e3b690"],["02","#d8aa82"],["03","#cf9f75"],["04","#c3925f"],["05","#b78a5a"],["06","#a87c52"]]},
-{"nome":"Gloss","cat":"labios","lancamento":true,"preco":10,"desc":"Gloss labial Oh Lip! com brilho cintilante e chaveiro de donut e biscoito.","imgs":["p-gloss-vitrine.webp","p-gloss-rosa.webp","p-gloss-cobre.webp"],"tons":[["Rosa","#d98ea0",1],["Cobre","#b87a50",2]]},
+{"nome":"Gloss","cat":"labios","preco":10,"desc":"Gloss labial Oh Lip! com brilho cintilante e chaveiro de donut e biscoito.","imgs":["p-gloss-vitrine.webp","p-gloss-rosa.webp","p-gloss-cobre.webp"],"tons":[["Rosa","#d98ea0",1],["Cobre","#b87a50",2]]},
 {"nome":"Espuma de Limpeza","cat":"skincare","preco":10,"desc":"Espuma de limpeza para rosto e corpo, de textura leve, com aloe vera.","imgs":["p-espuma.webp"]},
 {"nome":"Gel de Sobrancelha","cat":"sobrancelha","preco":10,"desc":"Gel que modela e fixa os fios da sobrancelha, com aplicador prático.","imgs":["p-gel-1.webp","p-gel-2.webp"]},
 {"nome":"Máscara de Cílios Febella","cat":"cilios","tags":"rimel","preco":10,"desc":"Máscara de cílios 2 em 1: gire a ponta para escolher o volume desejado. Volume intenso e alongador.","imgs":["p-mascara.webp"]},
